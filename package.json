@@ -1,7 +1,7 @@
 {
   "name": "weather-app",
   "version": "1.0.0",
-  "description": "Project to create weather app using only Vanilla JS, CSS, HTML",
+  "description": "Project to create weather app using only Vanilla JS, CSS and HTML.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
