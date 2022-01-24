@@ -1,0 +1,4 @@
+*.min.css
+main.js
+webfonts/
+node_modules/
