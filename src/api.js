@@ -1,3 +1,5 @@
+// import dom from './dom';
+
 const api = (() => {
   async function getCityData(query) {
     try {
@@ -31,7 +33,49 @@ const api = (() => {
   async function getData(query) {
     const cityData = await getCityData(query);
     const forecastData = await getForecastData(cityData.coord);
-    return { cityData, forecastData };
+    console.log(forecastData);
+    const data = {
+      city: cityData.city,
+      country: cityData.country,
+      coord: cityData.coord,
+      current: {
+        temp: forecastData.current.temp,
+        feelsLike: forecastData.current.feels_like,
+        tempDescription: forecastData.current.weather[0].description,
+        windSpeed: forecastData.current.wind_speed,
+        windDegree: forecastData.current.wind_deg,
+        chanceOfRain: forecastData.daily[0].rain,
+        humidity: forecastData.current.humidity,
+        dateAndTime: new Date(),
+        sunriseTime: forecastData.current.sunrise,
+        sunsetTime: forecastData.current.sunset,
+      },
+      daily: [],
+      hourly: [],
+    };
+
+    for (let i = 0; i < 7; i += 1) {
+      data.daily[i] = {
+        dayTemp: forecastData.daily[i].temp.day,
+        nightTemp: forecastData.daily[i].temp.night,
+        tempDescription: forecastData.daily[i].weather[0].description,
+        windSpeed: forecastData.daily[i].wind_speed,
+        windGust: forecastData.daily[i].wind_gust,
+        windDegree: forecastData.daily[i].wind_deg,
+      };
+    }
+
+    for (let j = 0; j < 24; j += 1) {
+      data.hourly[j] = {
+        temp: forecastData.hourly[j].temp,
+        tempDescription: forecastData.hourly[j].weather[0].description,
+        windSpeed: forecastData.hourly[j].wind_speed,
+        windGust: forecastData.hourly[j].wind_gust,
+        windDegree: forecastData.hourly[j].wind_deg,
+      };
+    }
+
+    return data;
   }
 
   return {
