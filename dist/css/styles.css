@@ -1,2 +1,42 @@
-body {background-color: cornflowerblue;}
-h1 {text-align: center;}
+body {
+  margin: 0;
+  background-color: #081b24;
+}
+
+.top-nav {
+  display: grid;
+  align-items: center;
+  grid-template-columns: auto auto auto;
+  grid-template-rows: 70px;
+  border-bottom: 2px solid #152c39;
+}
+
+.search {
+  justify-self: center;
+}
+
+.search > * {
+  height: 40px;
+  border: none;
+  border-radius: 20px;
+  font-size: 18px;
+  color: #fff;
+}
+
+.search-input {
+  background-color: #152c39;
+  padding: 4px 14px;
+}
+
+.search-submit {
+  width: 40px;
+  margin-left: 6px;
+  background-color: #2c4e66;
+  transition: all .3s;
+  cursor: pointer;
+}
+
+.search-submit:hover {
+  background-color: #ff73b9;
+  transition: all .3s;
+}
