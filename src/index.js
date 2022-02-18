@@ -1,5 +1,3 @@
-import api from './api';
+import handlers from './handlers';
 
-api.getData('Vilnius').then((response) => {
-  console.log(response);
-});
+handlers.clickHandler();

@@ -33,7 +33,6 @@ const api = (() => {
   async function getData(query) {
     const cityData = await getCityData(query);
     const forecastData = await getForecastData(cityData.coord);
-    console.log(forecastData);
     const data = {
       city: cityData.city,
       country: cityData.country,
@@ -74,7 +73,7 @@ const api = (() => {
         windDegree: forecastData.hourly[j].wind_deg,
       };
     }
-
+    console.log(data);
     return data;
   }
 
