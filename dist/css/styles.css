@@ -3,15 +3,35 @@ body {
   background-color: #081b24;
 }
 
+.wrapper {
+  display: grid;
+  grid-template-columns: 1fr minmax(0px, 1460px) 1fr;
+  grid-template-rows: 70px minmax(calc(100vh - 140px), auto) 70px;
+  grid-template-areas:
+    "header header header"
+    ". main ."
+    "footer footer footer";
+}
+
 .top-nav {
   display: grid;
+  grid-area: header;
+  grid-template-areas:
+  "logo search .";
   align-items: center;
-  grid-template-columns: auto auto auto;
-  grid-template-rows: 70px;
+  grid-template-columns: 1fr 400px 1fr;
+  padding: 0 30px;
   border-bottom: 2px solid #152c39;
 }
 
+.logo {
+  grid-area: logo;
+  font-size: 32px;
+  color: #ff73b9;
+}
+
 .search {
+  grid-area: search;
   justify-self: center;
 }
 
@@ -26,6 +46,7 @@ body {
 .search-input {
   background-color: #152c39;
   padding: 4px 14px;
+  width: 300px;
 }
 
 .search-submit {
@@ -39,4 +60,69 @@ body {
 .search-submit:hover {
   background-color: #ff73b9;
   transition: all .3s;
+}
+
+.main-container {
+  grid-area: main;
+  display: grid;
+  gap: 30px;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 360px 360px;
+  grid-template-areas:
+    "weather info"
+    "hourly daily";
+  color: #fff;
+  margin: 30px;
+}
+
+.main-container > * {
+  background-color: #152c39;
+  border-radius: 60px;
+  padding: 60px;
+
+}
+
+.footer {
+  grid-area: footer;
+  border-top: 2px solid #152c39;
+}
+
+@media only screen and (max-width: 1200px)   {
+  .main-container {
+    grid-area: main;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(4, 360px);
+    grid-template-areas:
+      "weather"
+      "info"
+      "hourly"
+      "daily";
+  }
+  .wrapper {
+    grid-template-columns: 1fr 5fr 1fr;
+  }
+}
+
+@media only screen and (max-width: 768px)   {
+  .wrapper {
+    grid-template-columns: auto 1fr auto;
+    grid-template-rows: auto minmax(calc(100vh - 202px), auto) 70px
+  }
+
+  .top-nav {
+    grid-template-columns: 1fr 352px 1fr;
+    grid-template-areas:
+    ". logo ."
+    ". search .";
+  }
+
+  .top-nav > * {
+    margin-bottom: 15px;
+  }
+
+  .logo {
+    margin-top: 15px;
+    text-align: center;
+  }
 }
