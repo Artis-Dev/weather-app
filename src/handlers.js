@@ -1,4 +1,4 @@
-import api from './api';
+import dom from './dom';
 
 const handlers = (() => {
   const searchSubmit = document.querySelector('.search-submit');
@@ -6,8 +6,7 @@ const handlers = (() => {
 
   function clickHandler() {
     searchSubmit.addEventListener('click', () => {
-      console.log(searchInput.value);
-      api.getData(searchInput.value);
+      dom.renderForecast(searchInput.value);
     });
   }
 

@@ -1,5 +1,3 @@
-// import dom from './dom';
-
 const api = (() => {
   async function getCityData(query) {
     try {
@@ -40,10 +38,11 @@ const api = (() => {
       current: {
         temp: forecastData.current.temp,
         feelsLike: forecastData.current.feels_like,
+        weatherId: forecastData.current.weather[0].id,
         tempDescription: forecastData.current.weather[0].description,
         windSpeed: forecastData.current.wind_speed,
         windDegree: forecastData.current.wind_deg,
-        chanceOfRain: forecastData.daily[0].rain,
+        chanceOfRain: forecastData.daily[0].pop,
         humidity: forecastData.current.humidity,
         dateAndTime: new Date(),
         sunriseTime: forecastData.current.sunrise,
@@ -57,6 +56,7 @@ const api = (() => {
       data.daily[i] = {
         dayTemp: forecastData.daily[i].temp.day,
         nightTemp: forecastData.daily[i].temp.night,
+        weatherId: forecastData.daily[i].weather[0].id,
         tempDescription: forecastData.daily[i].weather[0].description,
         windSpeed: forecastData.daily[i].wind_speed,
         windGust: forecastData.daily[i].wind_gust,
@@ -67,13 +67,14 @@ const api = (() => {
     for (let j = 0; j < 24; j += 1) {
       data.hourly[j] = {
         temp: forecastData.hourly[j].temp,
+        weatherId: forecastData.hourly[j].weather[0].id,
         tempDescription: forecastData.hourly[j].weather[0].description,
         windSpeed: forecastData.hourly[j].wind_speed,
         windGust: forecastData.hourly[j].wind_gust,
         windDegree: forecastData.hourly[j].wind_deg,
       };
     }
-    console.log(data);
+
     return data;
   }
 
