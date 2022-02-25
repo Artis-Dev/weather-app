@@ -4,36 +4,113 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Whtr - Weather app</title>
+  <title>Wthr - Weather app</title>
   <link href="css/styles.css" rel="stylesheet">
   <link href="css/fontawesome.min.css" rel="stylesheet">
   <link href="css/light.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <script defer src="main.js"></script>
 </head>
 <body>
 
   <div class="wrapper">
     <nav class="top-nav">
-      <div class="logo"><i class="fal fa-meteor"></i> Whtr</div>
+      <div class="logo"><i class="fal fa-meteor"></i> Wthr</div>
       <form class="search" action="#" method="get">
         <input class="search-input" type="search" name="" id="" placeholder="Search location">
         <button class="search-submit" type="submit"><i class="fal fa-search"></i></button>
       </form>
-      <div></div>
+      <!-- <div class="settings">
+        <button class="units">Metric: °C, m/s</button>
+        <button class="units">Imperial: °F, mph</button>
+      </div> -->
     </nav>
 
     <main class="main-container">
       <div>
-        Weather info
+        <h2 class="section-heading">Today in <span>City</span></h2>
+        <div class="top-info">
+          <div>
+            <i class="big-icon icon-current-temp fal fa-sun fa-fw"></i>
+          </div>
+          <div class="top-info-details">
+            <p class="top-info-details-title">Current temp</p>
+            <div>
+              <p class="top-data data-current-temp">10°C</p>
+            </div>
+            <div class="info-details-flex">
+              <span class="top-info-additional">Feels like <span>9</span>°C</span>
+              <span class="top-info-additional">Broken clouds</span></div>
+          </div>
+        </div>
+        <div class="top-info">
+          <div>
+            <i class="big-icon icon-current-temp fal fa-wind fa-fw"></i>
+          </div>
+          <div class="top-info-details">
+            <p class="top-info-details-title">Wind</p>
+            <p class="top-data data-current-temp"><i class="fal fa-arrow-up fa-fw"></i> 20m/s</p>
+            <div class="info-details-flex">
+              <span class="top-info-additional">Strong breeze</span>
+            </div>
+          </div>
+        </div>
+        <div class="info">
+          <p class="info-details-title">Additional info</p>
+          <div class="info-details-flex">
+            <span class="info-details"><i class="fal fa-humidity fa-fw"></i> Humidity: 77%</span>
+            <span class="info-details"><i class="fal fa-low-vision fa-fw"></i> Visibility: 4km</span>
+            <span class="info-details"><i class="fal fa-cloud fa-fw"></i> Cloudiness: 25%</span>
+            <span class="info-details"><i class="fal fa-tachometer-alt fa-fw"></i> Pressure: 500hPa</span>
+            <span class="info-details"><i class="fal fa-cloud-rain fa-fw"></i> Chance of Rain: 21%</span>
+          </div>
+        </div>
       </div>
       <div>
-        Additional info
+        <h2 class="section-heading">About <span>City</span></h2>
+        <div class="top-info">
+          <div>
+            <i class="big-icon icon-current-temp fal fa-map-marker-alt fa-fw"></i>
+          </div>
+          <div class="top-info-details">
+            <p class="top-info-details-title">Location</p>
+            <p class="top-data data-current-temp">City, Country</p>
+            <div class="info-details-flex">
+              <span class="top-info-additional"><i class="fal fa-location fa-fw"></i> 45°41'41.8"N</span>
+              <span class="top-info-additional"><i class="fal fa-location fa-fw"></i> 0°52'55.8"E</span>
+            </div>
+          </div>
+        </div>
+        <div class="top-info">
+          <div>
+            <i class="big-icon icon-current-temp fal fa-clock fa-fw"></i>
+          </div>
+          <div class="top-info-details">
+            <p class="top-info-details-title">Date and Time</p>
+            <p class="top-data data-current-temp">Feb 22, 10:37am</p>
+            <div class="info-details-flex">
+              <span class="top-info-additional"><i class="fal fa-sunrise fa-fw"></i> Sunrise 08:00</span>
+              <span class="top-info-additional"><i class="fal fa-sunset fa-fw"></i> Sunset 22:00</span>
+            </div>
+          </div>
+        </div>
+        <div class="info">
+          <p class="info-details-title">Additional info</p>
+          <div class="info-details-flex">
+            <span class="info-details"><i class="fal fa-sun-dust fa-fw"></i> UV Index: <span class="data-current-uvi">20</span></span>
+            <span class="info-details"><i class="fal fa-moon fa-fw"></i> Moon phase: Full Moon</span>
+          </div>
+        </div>
       </div>
       <div>
-        Hourly info
+        <h2 class="section-heading">Hourly Forecast</h2>
+        <div><i class="fal fa-question"></i> TODO</div>
       </div>
       <div>
-        Daily info
+        <h2 class="section-heading">Weekly Forecast</h2>
+        <div><i class="fal fa-question"></i> TODO</div>
       </div>
     </main>
 
