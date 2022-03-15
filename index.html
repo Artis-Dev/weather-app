@@ -7,7 +7,7 @@
   <title>Wthr - Weather app</title>
   <link href="css/styles.css" rel="stylesheet">
   <link href="css/fontawesome.min.css" rel="stylesheet">
-  <link href="css/light.min.css" rel="stylesheet">
+  <link href="css/regular.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&display=swap" rel="stylesheet">
@@ -17,10 +17,10 @@
 
   <div class="wrapper">
     <nav class="top-nav">
-      <div class="logo"><i class="fal fa-meteor"></i> Wthr</div>
+      <div class="logo"><i class="far fa-meteor"></i> Wthr</div>
       <form class="search" action="#" method="get">
         <input class="search-input" type="search" name="" id="" placeholder="Search location" required>
-        <button class="search-submit" type="submit"><i class="fal fa-search"></i></button>
+        <button class="search-submit" type="submit"><i class="far fa-search"></i></button>
       </form>
       <!-- <div class="settings">
         <button class="units">Metric: °C, m/s</button>
@@ -33,14 +33,14 @@
         <div class="section-location heading">
           <h2><span class="data-city">City</span>, <span class="data-country">Country</span></h2>
           <div class="section-flex">
-            <span class="pill"><i class="fal fa-location"></i> <span class="data-coord-lon">45°41'41.8"N</span></span>
-            <span class="pill"><i class="fal fa-location"></i> <span class="data-coord-lat">0°52'55.8"E</span></span>
+            <span class="pill"><i class="far fa-location"></i> <span class="data-coord-lon">45°41'41.8"N</span></span>
+            <span class="pill"><i class="far fa-location"></i> <span class="data-coord-lat">0°52'55.8"E</span></span>
           </div>
         </div>
         <div class="section-top-info section-flex">
           <div class="top-info-temp">
             <div>
-              <i class="big-icon icon-current-temp fal fa-sun fa-fw"></i>
+              <i class="big-icon icon-current-temp far fa-sun"></i>
             </div>
             <div class="top-info-details">
               <p class="top-info-details-title">Current temp</p>
@@ -53,12 +53,9 @@
             </div>
           </div>
           <div class="top-info-wind">
-            <div>
-              <i class="big-icon icon-current-temp fal fa-wind fa-fw"></i>
-            </div>
             <div class="top-info-details">
-              <p class="top-info-details-title">Wind</p>
-              <p class="big-info"><i class="fal fa-arrow-up fa-fw"></i> <span class="data-wind-speed">20</span>m/s</p>
+              <p class="top-info-details-title"><i class="far fa-wind"></i> Wind</p>
+              <p class="big-info"><i class="far fa-arrow-up"></i> <span class="data-wind-speed">20</span>m/s</p>
               <div class="section-flex">
                 <span class="pill">Strong breeze</span>
               </div>
@@ -68,31 +65,31 @@
         <div class="section-additional">
           <p class="additional-title">Additional Info</p>
           <div class="section-flex">
-            <span class="pill"><i class="fal fa-humidity"></i> Humidity: 77%</span>
-            <span class="pill"><i class="fal fa-low-vision"></i> Visibility: 4km</span>
-            <span class="pill"><i class="fal fa-cloud"></i> Cloudiness: 25%</span>
-            <span class="pill"><i class="fal fa-tachometer-alt"></i> Pressure: 500hPa</span>
-            <span class="pill"><i class="fal fa-cloud-rain"></i> Chance of Rain: 21%</span>
-            <span class="pill"><i class="fal fa-sun-dust"></i> UV Index: <span class="data-current-uvi">20</span></span>
+            <span class="pill"><i class="far fa-humidity"></i> Humidity: <span class="data-humidity">77</span>%</span>
+            <span class="pill"><i class="far fa-low-vision"></i> Visibility: <span class="data-visibility">4</span>km</span>
+            <span class="pill"><i class="far fa-cloud"></i> Cloudiness: <span class="data-clouds">25</span>%</span>
+            <span class="pill"><i class="far fa-tachometer-alt"></i> Pressure: <span class="data-pressure">500</span>hPa</span>
+            <span class="pill"><i class="far fa-cloud-rain"></i> Chance of Rain: <span class="data-rain-chance">21</span>%</span>
+            <span class="pill"><i class="far fa-sun-dust"></i> UV Index: <span class="data-uvi">20</span></span>
           </div>
         </div>
         <div class="section-additional">
           <p class="additional-title">Date and Time</p>
-          <p class="big-info current-date-time"><i class="fal fa-clock fa-fw"></i> Feb 22, 10:37am</p>
+          <p class="big-info current-date-time"><i class="far fa-clock"></i> Feb 22, 10:37am</p>
           <div class="section-flex">
-            <span class="pill"><i class="fal fa-sunrise"></i> Sunrise 08:00</span>
-            <span class="pill"><i class="fal fa-sunset"></i> Sunset 22:00</span>
-            <span class="pill"><i class="fal fa-moon"></i> Moon phase: Full Moon</span>
+            <span class="pill"><i class="far fa-sunrise"></i> Sunrise 08:00</span>
+            <span class="pill"><i class="far fa-sunset"></i> Sunset 22:00</span>
+            <span class="pill"><i class="far fa-moon"></i> Moon phase: Full Moon</span>
           </div>
         </div>
       </div>
       <div>
         <h2 class="heading">Hourly Forecast</h2>
-        <div><i class="fal fa-question"></i> TODO</div>
+        <div><i class="far fa-question"></i> TODO</div>
       </div>
       <div>
         <h2 class="heading">Weekly Forecast</h2>
-        <div><i class="fal fa-question"></i> TODO</div>
+        <div><i class="far fa-question"></i> TODO</div>
       </div>
     </main>
 

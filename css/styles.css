@@ -38,6 +38,7 @@ body {
   grid-area: logo;
   font-size: 32px;
   color: #eea84e;
+  font-weight: 600;
 }
 
 .search {
@@ -130,7 +131,8 @@ body {
 }
 
 .big-icon {
-  font-size: 50px;
+  margin-right: 12px;
+  font-size: 64px;
   color: #eea84e;
 }
 
@@ -144,7 +146,7 @@ body {
 
  .pill > i {
   color: #44799d;
- }
+}
 
 .section-flex {
   display: flex;
@@ -156,7 +158,7 @@ body {
 }
 
 .section-top-info {
-  gap: 32px;
+  column-gap: 30px;
 }
 
 .section-additional {
@@ -168,10 +170,6 @@ body {
   margin-bottom: 16px;
   display: flex;
   align-items: center;
-}
-
-.top-info-details {
-  margin-left: 8px;
 }
 
 .top-info-details-title {
