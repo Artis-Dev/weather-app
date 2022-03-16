@@ -6,8 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Wthr - Weather app</title>
   <link href="css/styles.css" rel="stylesheet">
-  <link href="css/fontawesome.min.css" rel="stylesheet">
-  <link href="css/regular.min.css" rel="stylesheet">
+
+  <script defer src="fontawesome/brands.min.js"></script>
+  <script defer src="fontawesome/regular.min.js"></script>
+  <script defer src="fontawesome/fontawesome.min.js"></script>
+
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&display=swap" rel="stylesheet">
@@ -33,31 +36,31 @@
         <div class="section-location heading">
           <h2><span class="data-city">City</span>, <span class="data-country">Country</span></h2>
           <div class="section-flex">
-            <span class="pill"><i class="far fa-location"></i> <span class="data-coord-lon">45°41'41.8"N</span></span>
-            <span class="pill"><i class="far fa-location"></i> <span class="data-coord-lat">0°52'55.8"E</span></span>
+            <span class="pill"><i class="far fa-location"></i> Lon <span class="data-coord-lon">-</span></span>
+            <span class="pill"><i class="far fa-location"></i> Lat <span class="data-coord-lat">-</span></span>
           </div>
         </div>
         <div class="section-top-info section-flex">
           <div class="top-info-temp">
             <div>
-              <i class="big-icon icon-current-temp far fa-sun"></i>
+              <i class="big-icon icon-weather far fa-sun"></i>
             </div>
             <div class="top-info-details">
               <p class="top-info-details-title">Current temp</p>
               <div>
-                <p class="big-info"><span class="data-temp">10</span>°C</p>
+                <p class="big-info"><span class="data-temp">-</span>°C</p>
               </div>
               <div class="section-flex">
-                <span class="pill">Feels like <span class="data-feels-like">9</span>°C</span>
-                <span class="pill data-temp-desc">Broken clouds</span></div>
+                <span class="pill">Feels like <span class="data-feels-like">-</span>°C</span>
+                <span class="pill data-temp-desc">-</span></div>
             </div>
           </div>
           <div class="top-info-wind">
             <div class="top-info-details">
               <p class="top-info-details-title"><i class="far fa-wind"></i> Wind</p>
-              <p class="big-info"><i class="far fa-arrow-up"></i> <span class="data-wind-speed">20</span>m/s</p>
+              <p class="big-info"><i class="far fa-long-arrow-up icon-wind-degree"></i> <span class="data-wind-speed">-</span>m/s</p>
               <div class="section-flex">
-                <span class="pill">Strong breeze</span>
+                <span class="pill data-wind-desc">Strong breeze</span>
               </div>
             </div>
           </div>
@@ -65,12 +68,12 @@
         <div class="section-additional">
           <p class="additional-title">Additional Info</p>
           <div class="section-flex">
-            <span class="pill"><i class="far fa-humidity"></i> Humidity: <span class="data-humidity">77</span>%</span>
-            <span class="pill"><i class="far fa-low-vision"></i> Visibility: <span class="data-visibility">4</span>km</span>
-            <span class="pill"><i class="far fa-cloud"></i> Cloudiness: <span class="data-clouds">25</span>%</span>
-            <span class="pill"><i class="far fa-tachometer-alt"></i> Pressure: <span class="data-pressure">500</span>hPa</span>
-            <span class="pill"><i class="far fa-cloud-rain"></i> Chance of Rain: <span class="data-rain-chance">21</span>%</span>
-            <span class="pill"><i class="far fa-sun-dust"></i> UV Index: <span class="data-uvi">20</span></span>
+            <span class="pill"><i class="far fa-humidity"></i> Humidity: <span class="data-humidity">-</span>%</span>
+            <span class="pill"><i class="far fa-low-vision"></i> Visibility: <span class="data-visibility">-</span>km</span>
+            <span class="pill"><i class="far fa-cloud"></i> Cloudiness: <span class="data-clouds">-</span>%</span>
+            <span class="pill"><i class="far fa-tachometer-alt"></i> Pressure: <span class="data-pressure">-</span>hPa</span>
+            <span class="pill"><i class="far fa-cloud-rain"></i> Chance of Rain: <span class="data-rain-chance">-</span>%</span>
+            <span class="pill"><i class="far fa-sun-dust"></i> UV Index: <span class="data-uvi">-</span></span>
           </div>
         </div>
         <div class="section-additional">

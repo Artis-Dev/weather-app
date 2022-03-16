@@ -37,16 +37,82 @@ const dom = (() => {
     return false;
   }
 
+  function getArrowDegree(windDegree) {
+    let arrowDegree = 0;
+    if (windDegree === 0) {
+      arrowDegree = 180;
+    } else if (windDegree > 0) {
+      arrowDegree = windDegree - 180;
+    } else {
+      arrowDegree = windDegree + 180;
+    }
+    return arrowDegree;
+  }
+
+  function getUviColor(uvi) {
+    let uviColor = '';
+    if (uvi <= 2) {
+      uviColor = 'data-uvi uvi-green';
+    } else if (uvi <= 5) {
+      uviColor = 'data-uvi uvi-yellow';
+    } else if (uvi <= 7) {
+      uviColor = 'data-uvi uvi-orange';
+    } else if (uvi > 7) {
+      uviColor = 'data-uvi uvi-red';
+    }
+    return uviColor;
+  }
+
+  function getWindDesc(windSpeed) {
+    let windDesc = '';
+    if (windSpeed < 0.5) {
+      windDesc = 'Calm';
+    } else if (windSpeed < 1.6) {
+      windDesc = 'Light air';
+    } else if (windSpeed < 3.4) {
+      windDesc = 'Light breeze';
+    } else if (windSpeed < 5.6) {
+      windDesc = 'Gentle breeze';
+    } else if (windSpeed < 8) {
+      windDesc = 'Moderate breeze';
+    } else if (windSpeed < 10.8) {
+      windDesc = 'Fresh breeze';
+    } else if (windSpeed < 13.9) {
+      windDesc = 'Strong breeze';
+    } else if (windSpeed < 17.2) {
+      windDesc = 'High wind';
+    } else if (windSpeed < 20.8) {
+      windDesc = 'Gale';
+    } else if (windSpeed < 24.5) {
+      windDesc = 'Strong gale';
+    } else if (windSpeed < 28.5) {
+      windDesc = 'Storm';
+    } else if (windSpeed < 32.7) {
+      windDesc = 'Violent storm';
+    } else if (windSpeed >= 32.7) {
+      windDesc = 'Hurricane';
+    }
+    return windDesc;
+  }
+
   function renderForecast(data) {
     const headingCity = document.querySelector('.data-city');
     const headingCountry = document.querySelector('.data-country');
     const headingCurrentTemp = document.querySelector('.data-temp');
     const headingWindSpeed = document.querySelector('.data-wind-speed');
+    const iconWeather = document.querySelector('.icon-weather');
+    const iconWindDegree = document.querySelector('.icon-wind-degree');
     const infoCoordLon = document.querySelector('.data-coord-lon');
     const infoCoordLat = document.querySelector('.data-coord-lat');
     const infoFeelsLike = document.querySelector('.data-feels-like');
     const infoTempDesc = document.querySelector('.data-temp-desc');
-    const iconCurrentTemp = document.querySelector('.icon-current-temp');
+    const infoWindDesc = document.querySelector('.data-wind-desc');
+    const additionalHumidity = document.querySelector('.data-humidity');
+    const additionalVisibility = document.querySelector('.data-visibility');
+    const additionalClouds = document.querySelector('.data-clouds');
+    const additionalPressure = document.querySelector('.data-pressure');
+    const additionalRainChance = document.querySelector('.data-rain-chance');
+    const additionalUvi = document.querySelector('.data-uvi');
 
     const {
       city, country, coord, current,
@@ -54,17 +120,30 @@ const dom = (() => {
 
     headingCity.textContent = city;
     headingCountry.textContent = country;
-    headingCurrentTemp.textContent = Math.round(current.temp);
-    headingWindSpeed.textContent = Math.round(current.windSpeed);
+    headingCurrentTemp.textContent = current.temp;
+    headingWindSpeed.textContent = current.windSpeed;
+
+    iconWeather.className.baseVal = '';
+    iconWeather.className.baseVal = `big-icon icon-weather far ${convertIcon(current.icon)}`;
+
+    iconWindDegree.setAttribute('data-fa-transform', `rotate-${getArrowDegree(current.windDegree)}`);
 
     infoCoordLon.textContent = coord.lon;
     infoCoordLat.textContent = coord.lat;
-    infoFeelsLike.textContent = Math.round(current.feelsLike);
+    infoFeelsLike.textContent = current.feelsLike;
     infoTempDesc.textContent = current.tempDescription.charAt(0).toUpperCase()
       + current.tempDescription.slice(1);
+    infoWindDesc.textContent = getWindDesc(current.windSpeed);
 
-    iconCurrentTemp.className = '';
-    iconCurrentTemp.className = `big-icon icon-current-temp far ${convertIcon(current.icon)}`;
+    additionalHumidity.textContent = current.humidity;
+    additionalVisibility.textContent = current.visibility;
+    additionalClouds.textContent = current.clouds;
+    additionalPressure.textContent = current.pressure;
+    additionalRainChance.textContent = current.chanceOfRain;
+    additionalUvi.textContent = current.uvi;
+
+    additionalUvi.className = '';
+    additionalUvi.className = getUviColor(current.uvi);
 
     console.log(data);
   }
