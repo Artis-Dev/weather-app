@@ -1,7 +1,9 @@
 :root {
   /* TODO */
-  --green: green;
-  --yellow: yellow;
+  --warning-green: #7EB356;
+  --warning-yellow: #F9C74F;
+  --warning-orange: #ED8607;
+  --warning-red: #F94144;
 }
 
 body, p, h1, h2, h3 {
@@ -144,8 +146,12 @@ body {
   border: 1px solid #44799d;
  }
 
- .pill > i {
+.pill > svg {
   color: #44799d;
+}
+
+span[class^="data"] {
+  font-weight: 600;
 }
 
 .section-flex {
@@ -186,11 +192,15 @@ body {
   text-align: center;
 }
 
-.data-current-uvi {
-  padding: 2px 3px;
-  border-radius: 13px;
-  background-color: green;
+.data-uvi {
+  padding: 1px 7px;
+  border-radius: 12px;
 }
+
+.uvi-green {background-color: var(--warning-green);}
+.uvi-yellow {background-color: var(--warning-yellow);}
+.uvi-orange {background-color: var(--warning-orange);}
+.uvi-red {background-color: var(--warning-red);}
 
 .footer {
   grid-area: footer;
