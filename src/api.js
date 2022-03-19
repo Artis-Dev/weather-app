@@ -1,14 +1,15 @@
+import { format, addSeconds, fromUnixTime } from 'date-fns';
+
 const api = (() => {
   async function processData(data) {
+    const regionNamesInEnglish = new Intl.DisplayNames(['en'], { type: 'region' });
     const { locationData, forecastData } = data;
     const processedData = {
       city: locationData.name,
-      country: locationData.sys.country,
-      coord: locationData.coord,
+      country: regionNamesInEnglish.of(locationData.sys.country),
       current: {
         temp: Math.round(forecastData.current.temp),
         feelsLike: Math.round(forecastData.current.feels_like),
-        pressure: forecastData.current.pressure,
         humidity: forecastData.current.humidity,
         clouds: forecastData.current.clouds,
         uvi: Math.round(forecastData.current.uvi),
@@ -17,10 +18,11 @@ const api = (() => {
         windDegree: forecastData.current.wind_deg,
         tempDescription: forecastData.current.weather[0].description,
         icon: forecastData.current.weather[0].icon,
-        chanceOfRain: forecastData.daily[0].pop * 100,
-        sunriseTime: forecastData.current.sunrise,
-        sunsetTime: forecastData.current.sunset,
+        chanceOfRain: Math.round(forecastData.daily[0].pop * 100),
+        sunriseTime: format(addSeconds(fromUnixTime(forecastData.current.sunrise), forecastData.timezone_offset), 'HH:mm'),
+        sunsetTime: format(addSeconds(fromUnixTime(forecastData.current.sunset), forecastData.timezone_offset), 'HH:mm'),
         moonPhase: forecastData.daily[0].moon_phase,
+        time: format(addSeconds(new Date(), forecastData.timezone_offset), 'EEE, MMMM d | HH:mm'),
       },
       daily: [],
       hourly: [],
