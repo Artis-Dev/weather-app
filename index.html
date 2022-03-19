@@ -13,87 +13,86 @@
 
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
   <script defer src="main.js"></script>
 </head>
 <body>
 
   <div class="wrapper">
     <nav class="top-nav">
-      <div class="logo"><i class="far fa-meteor"></i> Wthr</div>
+      <a href="#" class="logo"><i class="far fa-meteor"></i> Wthr</a>
       <form class="search" action="#" method="get">
-        <input class="search-input" type="search" name="" id="" placeholder="Search location" required>
-        <button class="search-submit" type="submit"><i class="far fa-search"></i></button>
+        <input class="search-input" type="search" name="" id="" placeholder="Search location" required><button class="search-submit" type="submit"><i class="far fa-search"></i></button>
       </form>
-      <!-- <div class="settings">
-        <button class="units">Metric: °C, m/s</button>
-        <button class="units">Imperial: °F, mph</button>
-      </div> -->
+      <div class="settings">
+        <button class="units">°C, m/s</button>
+        <button class="units">°F, mph</button>
+      </div>
     </nav>
 
     <main class="main-container">
-      <div class="weather-container">
-        <div class="section-location heading">
-          <h2><span class="data-city">City</span>, <span class="data-country">Country</span></h2>
-          <div class="section-flex">
-            <span class="pill"><i class="far fa-location"></i> Lon <span class="data-coord-lon">-</span></span>
-            <span class="pill"><i class="far fa-location"></i> Lat <span class="data-coord-lat">-</span></span>
-          </div>
+
+      <div class="section-heading">
+        <h2 class><span class="data-city"></span>, <span class="data-country"></span></h2>
+        <p class="location-details data-time"></p>
+      </div>
+
+      <div class="section-weather">
+        <div class="weather-main">
+          <i class="big-icon icon-weather far fa-sun"></i><span class="big-info"> <span class="data-temp"></span><span class="unit">°C</span></span>
         </div>
-        <div class="section-top-info section-flex">
-          <div class="top-info-temp">
-            <div>
-              <i class="big-icon icon-weather far fa-sun"></i>
-            </div>
-            <div class="top-info-details">
-              <p class="top-info-details-title">Current temp</p>
-              <div>
-                <p class="big-info"><span class="data-temp">-</span>°C</p>
-              </div>
-              <div class="section-flex">
-                <span class="pill">Feels like <span class="data-feels-like">-</span>°C</span>
-                <span class="pill data-temp-desc">-</span></div>
-            </div>
-          </div>
-          <div class="top-info-wind">
-            <div class="top-info-details">
-              <p class="top-info-details-title"><i class="far fa-wind"></i> Wind</p>
-              <p class="big-info"><i class="far fa-long-arrow-up icon-wind-degree"></i> <span class="data-wind-speed">-</span>m/s</p>
-              <div class="section-flex">
-                <span class="pill data-wind-desc">Strong breeze</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="section-additional">
-          <p class="additional-title">Additional Info</p>
-          <div class="section-flex">
-            <span class="pill"><i class="far fa-humidity"></i> Humidity: <span class="data-humidity">-</span>%</span>
-            <span class="pill"><i class="far fa-low-vision"></i> Visibility: <span class="data-visibility">-</span>km</span>
-            <span class="pill"><i class="far fa-cloud"></i> Cloudiness: <span class="data-clouds">-</span>%</span>
-            <span class="pill"><i class="far fa-tachometer-alt"></i> Pressure: <span class="data-pressure">-</span>hPa</span>
-            <span class="pill"><i class="far fa-cloud-rain"></i> Chance of Rain: <span class="data-rain-chance">-</span>%</span>
-            <span class="pill"><i class="far fa-sun-dust"></i> UV Index: <span class="data-uvi">-</span></span>
-          </div>
-        </div>
-        <div class="section-additional">
-          <p class="additional-title">Date and Time</p>
-          <p class="big-info current-date-time"><i class="far fa-clock"></i> Feb 22, 10:37am</p>
-          <div class="section-flex">
-            <span class="pill"><i class="far fa-sunrise"></i> Sunrise 08:00</span>
-            <span class="pill"><i class="far fa-sunset"></i> Sunset 22:00</span>
-            <span class="pill"><i class="far fa-moon"></i> Moon phase: Full Moon</span>
-          </div>
+        <div>
+          <p class="weather-desc data-temp-desc"></p>
+          <p class="weather-details">Feels like <span class="data-feels-like"></span><span class="unit">°C</span></p>
+          <p class="weather-details data-wind-desc">Strong breeze</p>
         </div>
       </div>
-      <div>
-        <h2 class="heading">Hourly Forecast</h2>
+      <div class="section-details">
+        <div class="details">
+          <p class="details-title">Wind</p>
+          <p class="details-data"><i class="far fa-long-arrow-up icon-wind-degree"></i> <span class="data-wind-speed"></span><span class="unit">m/s</span></p>
+        </div>
+        <div class="details">
+          <p class="details-title">Humidity</p>
+          <p class="details-data"><span class="data-humidity"></span>%</p>
+        </div>
+        <div class="details">
+          <p class="details-title">UV index</p>
+          <p class="details-data"><span class="data-uvi"></span></p>
+        </div>
+        <div class="details">
+          <p class="details-title">Visibility</span></p>
+          <p class="details-data"><span class="data-visibility"></span>km</p>
+        </div>
+        <div class="details">
+          <p class="details-title">Cloudiness</p>
+          <p class="details-data"><span class="data-clouds"></span>%</p>
+        </div>
+        <div class="details">
+          <p class="details-title">Chance of rain</p>
+          <p class="details-data"><span class="data-rain-chance"></span>%</p>
+        </div>
+        <div class="details">
+          <p class="details-title">Sunrise</span></p>
+          <p class="details-data"><span class="data-sunrise"></span></p>
+        </div>
+        <div class="details">
+          <p class="details-title">Sunset</p>
+          <p class="details-data"><span class="data-sunset"></span></p>
+        </div>
+        <div class="details">
+          <p class="details-title">Moon phase</p>
+          <p class="details-data"><span class="data-moon"></span></p>
+        </div>
+      </div>
+      <!-- <div>
+        <h2>Hourly Forecast</h2>
         <div><i class="far fa-question"></i> TODO</div>
       </div>
       <div>
-        <h2 class="heading">Weekly Forecast</h2>
+        <h2>Weekly Forecast</h2>
         <div><i class="far fa-question"></i> TODO</div>
-      </div>
+      </div> -->
     </main>
 
     <footer class="footer"></footer>
