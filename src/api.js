@@ -3,10 +3,11 @@ import { format, addSeconds, fromUnixTime } from 'date-fns';
 const api = (() => {
   async function processData(data) {
     const regionNamesInEnglish = new Intl.DisplayNames(['en'], { type: 'region' });
-    const { locationData, forecastData } = data;
+    const { locationData, forecastData, units } = data;
     const processedData = {
       city: locationData.name,
       country: regionNamesInEnglish.of(locationData.sys.country),
+      units,
       current: {
         temp: Math.round(forecastData.current.temp),
         feelsLike: Math.round(forecastData.current.feels_like),
@@ -54,7 +55,7 @@ const api = (() => {
     return processedData;
   }
 
-  async function getForecastData(locationData, units = 'metric') {
+  async function getForecastData(locationData, units) {
     const { coord } = locationData;
     try {
       const response = await fetch(
@@ -62,13 +63,13 @@ const api = (() => {
         { mode: 'cors' },
       );
       const forecastData = await response.json();
-      return processData({ locationData, forecastData });
+      return processData({ locationData, forecastData, units });
     } catch (error) {
-      return console.error(error);
+      return { cod: error.name, message: error.message };
     }
   }
 
-  async function getLocData(query) {
+  async function getLocData(query, units = 'metric') {
     try {
       const response = await fetch(
         `https://api.openweathermap.org/data/2.5/weather?q=${query}&appid=c93fd1817f3fbe42aeac0a63076603b9`,
@@ -77,12 +78,11 @@ const api = (() => {
       const locData = await response.json();
 
       if (response.status >= 400) {
-        console.log('Error: ', locData);
         return locData;
       }
-      return getForecastData(locData);
+      return getForecastData(locData, units);
     } catch (error) {
-      return console.error(error);
+      return { cod: error.name, message: error.message };
     }
   }
 

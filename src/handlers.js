@@ -5,10 +5,14 @@ const handlers = (() => {
   const searchSubmit = document.querySelector('.search-submit');
   const searchInput = document.querySelector('.search-input');
 
+  let input = '';
+  let units = 'metric';
+
   function clickHandler() {
     searchSubmit.addEventListener('click', async (e) => {
       e.preventDefault();
-      const weatherData = await api.getLocData(searchInput.value);
+      input = searchInput.value;
+      const weatherData = await api.getLocData(input, units);
       dom.renderForecast(weatherData);
     });
   }

@@ -124,6 +124,7 @@ const dom = (() => {
   }
 
   function renderForecast(data) {
+    const mainContainer = document.querySelector('.main-container');
     const headingCity = document.querySelector('.data-city');
     const headingCountry = document.querySelector('.data-country');
     const headingCurrentTemp = document.querySelector('.data-temp');
@@ -142,10 +143,16 @@ const dom = (() => {
     const detailsSunrise = document.querySelector('.data-sunrise');
     const detailsSunset = document.querySelector('.data-sunset');
     const detailsMoon = document.querySelector('.data-moon');
+    const error = document.querySelector('.error');
 
     if (data.cod) {
-      console.log(data.message);
+      error.className = 'error show';
+      mainContainer.className = 'main-container hide';
+      error.textContent = data.message.charAt(0).toUpperCase()
+      + data.message.slice(1);
     } else {
+      error.className = 'error hide';
+      mainContainer.className = 'main-container';
       const { city, country, current } = data;
 
       headingCity.textContent = city;
