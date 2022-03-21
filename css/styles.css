@@ -26,10 +26,12 @@ body {
 
 .wrapper {
   display: grid;
+  height: 100vh;
   grid-template-columns: 1fr minmax(0px, 992px) 1fr;
-  grid-template-rows: auto minmax(calc(100vh - 130px), auto) 70px;
+  grid-template-rows: auto auto 1fr 70px;
   grid-template-areas:
     "header header header"
+    ". error ."
     ". main ."
     "footer footer footer";
 }
@@ -41,8 +43,8 @@ body {
   "logo search settings";
   align-items: center;
   grid-template-columns: 1fr 360px 1fr;
-  padding: 0 30px;
-  margin-top: 16px;
+  padding: 0 32px;
+  margin: 16px 0;
 }
 
 .logo {
@@ -58,7 +60,7 @@ body {
   justify-self: center;
 }
 
-.search > * {
+.search > *:not(.error) {
   background-color: #1c3242;
   height: 40px;
   border: none;
@@ -69,7 +71,7 @@ body {
 .search-input {
   font-family: 'Nunito', sans-serif;
   font-weight: 700;
-  padding: 4px 0 4px 14px;
+  padding: 4px 0 4px 16px;
   width: 256px;
   border-radius: 20px 0 0 20px;
   outline: none;
@@ -99,12 +101,28 @@ body {
   transition: all .3s;
   cursor: pointer;
   font-size: 14px;
-  padding: 4px 14px;
+  padding: 4px 16px;
   height: 40px;
   border-radius: 20px;
   border: none;
   color: var(--white);
   font-weight: 700;
+}
+
+.units:hover {
+  background-color: var(--blue);
+}
+
+.error {
+  grid-area: error;
+  font-weight: 700;
+  color: var(--warning-red);
+  background-color: var(--white);
+  padding: 4px 16px;
+  border-radius: 24px;
+  margin-bottom: 16px;
+  justify-self: center;
+  text-align: center;
 }
 
 .main-container {
@@ -128,6 +146,14 @@ body {
   font-size: 28px;
 }
 
+.show {
+  display: inline-block;
+}
+
+.hide {
+  display: none;
+}
+
 .location-details {
   font-size: 20px;
   color: var(--transparent-white);
@@ -147,7 +173,7 @@ body {
 }
 
 .big-icon {
-  margin-right: 12px;
+  margin-right: 16px;
   font-size: 64px;
   color: var(--white);
 }
@@ -207,7 +233,7 @@ body {
 @media only screen and (max-width: 992px)   {
   .wrapper {
     grid-template-columns: auto 1fr auto;
-    grid-template-rows: auto minmax(calc(100vh - 186px), auto) 70px;
+    grid-template-rows: auto auto minmax(calc(100vh - 187px), auto) 70px;
   }
 
   .top-nav {
@@ -218,8 +244,6 @@ body {
   }
 
   .main-container {
-    grid-area: main;
-    display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: repeat(4, minmax(min-content, max-content));
     grid-template-areas:
@@ -241,12 +265,12 @@ body {
 @media only screen and (max-width: 768px)   {
   .wrapper {
     grid-template-columns: auto 1fr auto;
-    grid-template-rows: auto minmax(calc(100vh - 243px), auto) 70px
+    grid-template-rows: auto auto minmax(calc(100vh - 227px), auto) 70px
   }
 
   .top-nav {
     grid-template-columns: 1fr 354px 1fr;
-    grid-template-rows: auto 40px 40px;
+    grid-template-rows: auto 56px 40px;
     grid-template-areas:
     ". logo ."
     ". search ."
