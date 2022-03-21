@@ -95,7 +95,7 @@ body {
   justify-self: end;
 }
 
-.units {
+[class^='units'] {
   margin-left: 8px;
   background-color: #1c3242;
   transition: all .3s;
@@ -109,7 +109,8 @@ body {
   font-weight: 700;
 }
 
-.units:hover {
+[class^='units']:hover,
+[class^='units'].active {
   background-color: var(--blue);
 }
 
