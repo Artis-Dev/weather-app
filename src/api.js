@@ -1,4 +1,4 @@
-import { format, addSeconds, fromUnixTime } from 'date-fns';
+import { addSeconds, fromUnixTime } from 'date-fns';
 
 const api = (() => {
   async function processData(data) {
@@ -15,15 +15,21 @@ const api = (() => {
         clouds: forecastData.current.clouds,
         uvi: Math.round(forecastData.current.uvi),
         visibility: forecastData.current.visibility / 1000,
-        windSpeed: Math.round(forecastData.current.wind_speed),
+        windSpeed: forecastData.current.wind_speed,
         windDegree: forecastData.current.wind_deg,
         tempDescription: forecastData.current.weather[0].description,
         icon: forecastData.current.weather[0].icon,
         chanceOfRain: Math.round(forecastData.daily[0].pop * 100),
-        sunriseTime: format(addSeconds(fromUnixTime(forecastData.current.sunrise), forecastData.timezone_offset), 'HH:mm'),
-        sunsetTime: format(addSeconds(fromUnixTime(forecastData.current.sunset), forecastData.timezone_offset), 'HH:mm'),
+        sunriseTime: addSeconds(
+          fromUnixTime(forecastData.current.sunrise),
+          forecastData.timezone_offset,
+        ),
+        sunsetTime: addSeconds(
+          fromUnixTime(forecastData.current.sunset),
+          forecastData.timezone_offset,
+        ),
         moonPhase: forecastData.daily[0].moon_phase,
-        time: format(addSeconds(new Date(), forecastData.timezone_offset), 'EEE, MMMM d | HH:mm'),
+        time: addSeconds(new Date(), forecastData.timezone_offset),
       },
       daily: [],
       hourly: [],

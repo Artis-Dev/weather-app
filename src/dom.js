@@ -1,3 +1,6 @@
+/* eslint no-param-reassign: ["error", { "props": false }] */
+import { format } from 'date-fns';
+
 const dom = (() => {
   function convertIcon(iconId) {
     switch (iconId) {
@@ -63,36 +66,41 @@ const dom = (() => {
     return uviColor;
   }
 
-  function getWindDesc(windSpeed) {
-    let windDesc = '';
+  function getWind(windSpeed, units) {
+    const roundedSpeed = Math.round(windSpeed);
+    let windDesc;
+    let speed = windSpeed;
+    if (units === 'imperial') {
+      speed *= 0.44704;
+    }
     if (windSpeed < 0.5) {
       windDesc = 'Calm';
-    } else if (windSpeed < 1.6) {
+    } else if (speed < 1.6) {
       windDesc = 'Light air';
-    } else if (windSpeed < 3.4) {
+    } else if (speed < 3.4) {
       windDesc = 'Light breeze';
-    } else if (windSpeed < 5.6) {
+    } else if (speed < 5.6) {
       windDesc = 'Gentle breeze';
-    } else if (windSpeed < 8) {
+    } else if (speed < 8) {
       windDesc = 'Moderate breeze';
-    } else if (windSpeed < 10.8) {
+    } else if (speed < 10.8) {
       windDesc = 'Fresh breeze';
-    } else if (windSpeed < 13.9) {
+    } else if (speed < 13.9) {
       windDesc = 'Strong breeze';
-    } else if (windSpeed < 17.2) {
+    } else if (speed < 17.2) {
       windDesc = 'High wind';
-    } else if (windSpeed < 20.8) {
+    } else if (speed < 20.8) {
       windDesc = 'Gale';
-    } else if (windSpeed < 24.5) {
+    } else if (speed < 24.5) {
       windDesc = 'Strong gale';
-    } else if (windSpeed < 28.5) {
+    } else if (speed < 28.5) {
       windDesc = 'Storm';
-    } else if (windSpeed < 32.7) {
+    } else if (speed < 32.7) {
       windDesc = 'Violent storm';
-    } else if (windSpeed >= 32.7) {
+    } else if (speed >= 32.7) {
       windDesc = 'Hurricane';
     }
-    return windDesc;
+    return { windDesc, roundedSpeed };
   }
 
   function getMoonName(moonPhase) {
@@ -121,6 +129,50 @@ const dom = (() => {
       return 'waning crescent';
     }
     return false;
+  }
+
+  function changeUnits(units) {
+    const metricButton = document.querySelector('.units-metric');
+    const imperialButton = document.querySelector('.units-imperial');
+    const tempUnits = document.querySelectorAll('.temp-unit');
+    const speedUnit = document.querySelector('.speed-unit');
+
+    let tempUnit;
+    let windUnit;
+
+    if (units === 'metric') {
+      metricButton.className = 'units-metric active';
+      imperialButton.className = 'units-imperial';
+      tempUnit = '°C';
+      windUnit = 'm/s';
+    } else {
+      imperialButton.className = 'units-imperial active';
+      metricButton.className = 'units-metric';
+      tempUnit = '°F';
+      windUnit = 'mph';
+    }
+
+    tempUnits.forEach((unit) => {
+      unit.textContent = tempUnit;
+    });
+    speedUnit.textContent = windUnit;
+  }
+
+  function formatTime(data, units) {
+    const { time, sunriseTime, sunsetTime } = data;
+    let formattedTime;
+    let formattedSunriseTime;
+    let formattedSunsetTime;
+    if (units === 'imperial') {
+      formattedTime = format(time, 'EEEE d MMMM yyyy | h:mm aa');
+      formattedSunriseTime = format(sunriseTime, 'h:mm aa');
+      formattedSunsetTime = format(sunsetTime, 'h:mm aa');
+      return { formattedTime, formattedSunriseTime, formattedSunsetTime };
+    }
+    formattedTime = format(time, 'EEEE d MMMM yyyy | H:mm');
+    formattedSunriseTime = format(sunriseTime, 'H:mm');
+    formattedSunsetTime = format(sunsetTime, 'H:mm');
+    return { formattedTime, formattedSunriseTime, formattedSunsetTime };
   }
 
   function renderForecast(data) {
@@ -153,7 +205,12 @@ const dom = (() => {
     } else {
       error.className = 'error hide';
       mainContainer.className = 'main-container';
-      const { city, country, current } = data;
+
+      const {
+        city, country, units, current,
+      } = data;
+
+      changeUnits(units);
 
       headingCity.textContent = city;
       headingCountry.textContent = country;
@@ -167,13 +224,13 @@ const dom = (() => {
         `rotate-${getArrowDegree(current.windDegree)}`,
       );
 
-      infoTime.textContent = current.time;
+      infoTime.textContent = formatTime(current, units).formattedTime;
       infoFeelsLike.textContent = current.feelsLike;
       infoTempDesc.textContent = current.tempDescription.charAt(0).toUpperCase()
         + current.tempDescription.slice(1);
-      infoWindDesc.textContent = getWindDesc(current.windSpeed);
+      infoWindDesc.textContent = getWind(current.windSpeed, units).windDesc;
 
-      detailsWindSpeed.textContent = current.windSpeed;
+      detailsWindSpeed.textContent = getWind(current.windSpeed, units).roundedSpeed;
       detailsHumidity.textContent = current.humidity;
       detailsVisibility.textContent = current.visibility;
       detailsClouds.textContent = current.clouds;
@@ -183,8 +240,8 @@ const dom = (() => {
       detailsUvi.className = '';
       detailsUvi.className = getUviColor(current.uvi);
 
-      detailsSunrise.textContent = current.sunriseTime;
-      detailsSunset.textContent = current.sunsetTime;
+      detailsSunrise.textContent = formatTime(current, units).formattedSunriseTime;
+      detailsSunset.textContent = formatTime(current, units).formattedSunsetTime;
       detailsMoon.textContent = getMoonName(current.moonPhase);
 
       console.log(data);
