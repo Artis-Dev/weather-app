@@ -12,7 +12,7 @@
     <link href="https://fonts.googleapis.com" rel="preconnect" />
     <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@700&display=swap"
       rel="stylesheet"
     />
     <script defer src="main.js"></script>
@@ -29,9 +29,8 @@
             id=""
             placeholder="Search location"
             autocomplete="off"
-            required
-          /><button class="search-submit" type="submit">
-            <i class="far fa-search"></i>
+          /><button class="search-submit submit" type="submit">
+            <i class="far fa-search submit"></i>
           </button>
         </form>
         <div class="settings">
@@ -39,27 +38,29 @@
           <button class="units-imperial">°F, mph</button>
         </div>
       </nav>
-      <p class="error hide">Test error</p>
+      <div class="info">
+        <div class="loading hide"><i class="far fa-spinner fa-pulse"></i></div>
+        <p class="error hide"></p>
+      </div>
       <main class="main-container hide">
         <div class="section-heading">
-          <h2 class>
+          <h2>
             <span class="data-city"></span>, <span class="data-country"></span>
           </h2>
           <p class="location-details data-time"></p>
         </div>
-
         <div class="section-weather">
           <div class="weather-main">
             <i class="big-icon icon-weather far fa-sun"></i
-            ><span class="big-info">
-              <span class="data-temp"></span><span class="temp-unit">°C</span></span
-            >
+            ><span class="big-data">
+              <span class="data-temp"></span><span class="temp-unit"></span
+            ></span>
           </div>
           <div>
             <p class="weather-desc data-temp-desc"></p>
             <p class="weather-details">
               Feels like <span class="data-feels-like"></span
-              ><span class="temp-unit">°C</span>
+              ><span class="temp-unit"></span>
             </p>
             <p class="weather-details data-wind-desc">Strong breeze</p>
           </div>
@@ -69,7 +70,8 @@
             <p class="details-title">Wind</p>
             <p class="details-data">
               <i class="far fa-long-arrow-up icon-wind-degree"></i>
-              <span class="data-wind-speed"></span><span class="speed-unit">m/s</span>
+              <span class="data-wind-speed"></span
+              ><span class="speed-unit"></span>
             </p>
           </div>
           <div class="details">
@@ -106,16 +108,17 @@
           </div>
         </div>
         <!-- <div>
-        <h2>Hourly Forecast</h2>
-        <div><i class="far fa-question"></i> TODO</div>
-      </div>
-      <div>
-        <h2>Weekly Forecast</h2>
-        <div><i class="far fa-question"></i> TODO</div>
-      </div> -->
+          <h2>Hourly Forecast</h2>
+          <div><i class="far fa-question"></i> TODO</div>
+        </div>
+        <div>
+          <h2>Weekly Forecast</h2>
+          <div><i class="far fa-question"></i> TODO</div>
+        </div> -->
       </main>
-
-      <footer class="footer"></footer>
+      <footer class="footer">
+        <p class="credits">Built by <a href="https://github.com/Artis-Dev/" target="_blank">ArtisDev</a> | <a href="https://github.com/Artis-Dev/weather-app/" target="_blank">Source code</a></p>
+      </footer>
     </div>
   </body>
 </html>
