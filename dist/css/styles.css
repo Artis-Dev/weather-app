@@ -15,6 +15,7 @@ body, p, h1, h2, h3 {
 
 body {
   font-family: 'Nunito', sans-serif;
+  font-weight: 700;
   font-size: 16px;
   color: var(--white);
   background-color: var(--blue);
@@ -51,7 +52,6 @@ body {
   grid-area: logo;
   font-size: 32px;
   color: var(--white);
-  font-weight: 700;
   text-decoration: none;
 }
 
@@ -70,7 +70,6 @@ body {
 
 .search-input {
   font-family: 'Nunito', sans-serif;
-  font-weight: 700;
   padding: 4px 0 4px 16px;
   width: 256px;
   border-radius: 20px 0 0 20px;
@@ -78,17 +77,11 @@ body {
 }
 
 .search-submit {
-  transition: all .3s;
   cursor: pointer;
   width: 52px;
   line-height: 1;
   border-radius: 0 20px 20px 0;
 }
-
-/* .search-submit:hover {
-  color: var(--blue);
-  transition: all .3s;
-} */
 
 .settings {
   grid-area: settings;
@@ -96,6 +89,7 @@ body {
 }
 
 [class^='units'] {
+  font-weight: 700;
   margin-left: 8px;
   background-color: #1c3242;
   transition: all .3s;
@@ -106,7 +100,6 @@ body {
   border-radius: 20px;
   border: none;
   color: var(--white);
-  font-weight: 700;
 }
 
 [class^='units']:hover,
@@ -114,16 +107,22 @@ body {
   background-color: var(--blue);
 }
 
-.error {
+.info {
   grid-area: error;
-  font-weight: 700;
+  justify-self: center;
+  text-align: center;
+}
+
+.loading {
+ font-size: 64px;
+}
+
+.error {
   color: var(--warning-red);
   background-color: var(--white);
   padding: 4px 16px;
   border-radius: 24px;
   margin-bottom: 16px;
-  justify-self: center;
-  text-align: center;
 }
 
 .main-container {
@@ -148,7 +147,7 @@ body {
 }
 
 .show {
-  display: inline-block;
+  display: block;
 }
 
 .hide {
@@ -158,7 +157,6 @@ body {
 .location-details {
   font-size: 20px;
   color: var(--transparent-white);
-  font-weight: 700;
 }
 
 .section-weather {
@@ -179,19 +177,16 @@ body {
   color: var(--white);
 }
 
-.big-info {
+.big-data {
   font-size: 48px;
-  font-weight: 700;
 }
 
 .weather-desc {
   font-size: 24px;
-  font-weight: 700;
 }
 
 .weather-details {
   color: var(--transparent-white);
-  font-weight: 700;
   font-size: 18px;
 }
 
@@ -204,12 +199,10 @@ body {
 
 .details-title {
   color: var(--transparent-white);
-  font-weight: 700;
 }
 
 .details-data {
   font-size: 24px;
-  font-weight: 700;
   margin-top: 4px;
 }
 
@@ -229,6 +222,22 @@ body {
 
 .footer {
   grid-area: footer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.credits {
+  color: var(--transparent-white)
+}
+
+.credits a {
+  text-decoration: none;
+  color: var(--white);
+}
+
+.credits a:hover {
+  text-decoration: underline;
 }
 
 @media only screen and (max-width: 992px)   {

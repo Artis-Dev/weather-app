@@ -2,6 +2,19 @@
 import { format } from 'date-fns';
 
 const dom = (() => {
+  const mainContainer = document.querySelector('.main-container');
+
+  function loading(state) {
+    const loadingSpinner = document.querySelector('.loading');
+
+    if (state === 'loading') {
+      loadingSpinner.className = 'loading show';
+      mainContainer.className = 'main-container hide';
+    } else {
+      loadingSpinner.className = 'loading hide';
+    }
+  }
+
   function convertIcon(iconId) {
     switch (iconId) {
       case '01d':
@@ -176,7 +189,6 @@ const dom = (() => {
   }
 
   function renderForecast(data) {
-    const mainContainer = document.querySelector('.main-container');
     const headingCity = document.querySelector('.data-city');
     const headingCountry = document.querySelector('.data-country');
     const headingCurrentTemp = document.querySelector('.data-temp');
@@ -249,6 +261,7 @@ const dom = (() => {
   }
 
   return {
+    loading,
     renderForecast,
   };
 })();
