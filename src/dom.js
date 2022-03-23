@@ -116,39 +116,50 @@ const dom = (() => {
     return { windDesc, roundedSpeed };
   }
 
-  function getMoonName(moonPhase) {
+  function getMoonIcon(moonPhase) {
+    let moonIcon = '';
+    let moonName = '';
+
     if (moonPhase === 0 || moonPhase === 1) {
-      return 'new moon';
+      moonName = 'New Moon';
+      moonIcon = './svg/moon-new.svg';
     }
     if (moonPhase === 0.25) {
-      return 'first quarter moon';
+      moonName = 'First Quarter Moon';
+      moonIcon = './svg/moon-first-quarter.svg';
     }
     if (moonPhase === 0.5) {
-      return 'full moon';
+      moonName = 'Full Moon';
+      moonIcon = './svg/moon-full.svg';
     }
     if (moonPhase === 0.75) {
-      return 'last quarter moon';
+      moonName = 'Last Quarter Moon';
+      moonIcon = './svg/moon-last-quarter.svg';
     }
     if (moonPhase > 0 && moonPhase < 0.25) {
-      return 'waxing crescent';
+      moonName = 'Waxing Crescent';
+      moonIcon = './svg/moon-waxing-crescent.svg';
     }
     if (moonPhase > 0.25 && moonPhase < 0.5) {
-      return 'waxing gibous';
+      moonName = 'Waxing Gibbous';
+      moonIcon = './svg/moon-waxing-gibbous.svg';
     }
     if (moonPhase > 0.5 && moonPhase < 0.75) {
-      return 'waning gibous';
+      moonName = 'Waning Gibbous';
+      moonIcon = './svg/moon-waning-gibbous.svg';
     }
     if (moonPhase > 0.75 && moonPhase < 1) {
-      return 'waning crescent';
+      moonName = 'Waning Crescent';
+      moonIcon = './svg/moon-waning-crescent.svg';
     }
-    return false;
+    return { moonName, moonIcon };
   }
 
   function changeUnits(units) {
     const metricButton = document.querySelector('.units-metric');
     const imperialButton = document.querySelector('.units-imperial');
     const tempUnits = document.querySelectorAll('.temp-unit');
-    const speedUnit = document.querySelector('.speed-unit');
+    const speedUnits = document.querySelectorAll('.speed-unit');
 
     let tempUnit;
     let windUnit;
@@ -168,27 +179,36 @@ const dom = (() => {
     tempUnits.forEach((unit) => {
       unit.textContent = tempUnit;
     });
-    speedUnit.textContent = windUnit;
+    speedUnits.forEach((unit) => {
+      unit.textContent = windUnit;
+    });
   }
 
   function formatTime(data, units) {
-    const { time, sunriseTime, sunsetTime } = data;
     let formattedTime;
     let formattedSunriseTime;
     let formattedSunsetTime;
+    let formattedWeekDay;
     if (units === 'imperial') {
-      formattedTime = format(time, 'EEEE d MMMM yyyy | h:mm aa');
-      formattedSunriseTime = format(sunriseTime, 'h:mm aa');
-      formattedSunsetTime = format(sunsetTime, 'h:mm aa');
-      return { formattedTime, formattedSunriseTime, formattedSunsetTime };
+      formattedTime = format(data, 'EEEE d MMMM yyyy | h:mm aa');
+      formattedSunriseTime = format(data, 'h:mm aa');
+      formattedSunsetTime = format(data, 'h:mm aa');
+      formattedWeekDay = format(data, 'EEEE');
+      return {
+        formattedTime, formattedSunriseTime, formattedSunsetTime, formattedWeekDay,
+      };
     }
-    formattedTime = format(time, 'EEEE d MMMM yyyy | H:mm');
-    formattedSunriseTime = format(sunriseTime, 'H:mm');
-    formattedSunsetTime = format(sunsetTime, 'H:mm');
-    return { formattedTime, formattedSunriseTime, formattedSunsetTime };
+    formattedTime = format(data, 'EEEE d MMMM yyyy | H:mm');
+    formattedSunriseTime = format(data, 'H:mm');
+    formattedSunsetTime = format(data, 'H:mm');
+    formattedWeekDay = format(data, 'EEEE');
+    return {
+      formattedTime, formattedSunriseTime, formattedSunsetTime, formattedWeekDay,
+    };
   }
 
   function renderForecast(data) {
+    const error = document.querySelector('.error');
     const headingCity = document.querySelector('.data-city');
     const headingCountry = document.querySelector('.data-country');
     const headingCurrentTemp = document.querySelector('.data-temp');
@@ -207,7 +227,7 @@ const dom = (() => {
     const detailsSunrise = document.querySelector('.data-sunrise');
     const detailsSunset = document.querySelector('.data-sunset');
     const detailsMoon = document.querySelector('.data-moon');
-    const error = document.querySelector('.error');
+    const weeklyList = document.querySelector('.weekly-list');
 
     if (data.cod) {
       error.className = 'error show';
@@ -219,10 +239,8 @@ const dom = (() => {
       mainContainer.className = 'main-container';
 
       const {
-        city, country, units, current,
+        city, country, units, current, daily,
       } = data;
-
-      changeUnits(units);
 
       headingCity.textContent = city;
       headingCountry.textContent = country;
@@ -236,7 +254,7 @@ const dom = (() => {
         `rotate-${getArrowDegree(current.windDegree)}`,
       );
 
-      infoTime.textContent = formatTime(current, units).formattedTime;
+      infoTime.textContent = formatTime(current.time, units).formattedTime;
       infoFeelsLike.textContent = current.feelsLike;
       infoTempDesc.textContent = current.tempDescription.charAt(0).toUpperCase()
         + current.tempDescription.slice(1);
@@ -252,9 +270,89 @@ const dom = (() => {
       detailsUvi.className = '';
       detailsUvi.className = getUviColor(current.uvi);
 
-      detailsSunrise.textContent = formatTime(current, units).formattedSunriseTime;
-      detailsSunset.textContent = formatTime(current, units).formattedSunsetTime;
-      detailsMoon.textContent = getMoonName(current.moonPhase);
+      detailsSunrise.textContent = formatTime(current.sunriseTime, units).formattedSunriseTime;
+      detailsSunset.textContent = formatTime(current.sunsetTime, units).formattedSunsetTime;
+      detailsMoon.setAttribute('src', getMoonIcon(current.moonPhase).moonIcon);
+      detailsMoon.setAttribute('title', getMoonIcon(current.moonPhase).moonName);
+
+      weeklyList.textContent = '';
+
+      for (let i = 0; i < daily.length; i += 1) {
+        const weeklyDay = document.createElement('div');
+        weeklyDay.classList.add('weekly-day');
+        weeklyList.appendChild(weeklyDay);
+
+        const weeklyDateSpan = document.createElement('span');
+        weeklyDateSpan.classList.add('data-weekly-date', 'weekly-day-date');
+        weeklyDateSpan.textContent = formatTime(daily[i].date, units).formattedWeekDay;
+        weeklyDay.appendChild(weeklyDateSpan);
+
+        // const weeklyWeatherSpan = document.createElement('span');
+        // weeklyWeatherSpan.classList.add('weekly-day-weather');
+        // weeklyDay.appendChild(weeklyWeatherSpan);
+
+        const weeklyWeatherDay = document.createElement('span');
+        weeklyWeatherDay.className = 'weekly-day-day-temp';
+        weeklyWeatherDay.setAttribute(
+          'title',
+          daily[i].tempDescription.charAt(0).toUpperCase()
+            + daily[i].tempDescription.slice(1),
+        );
+        weeklyDay.appendChild(weeklyWeatherDay);
+
+        const weeklyWeatherIcon = document.createElement('i');
+        weeklyWeatherIcon.className = `icon-weekly-weather far ${convertIcon(daily[i].icon)} fa-fw`;
+        weeklyWeatherDay.appendChild(weeklyWeatherIcon);
+
+        const weeklyWeatherDayTemp = document.createElement('span');
+        weeklyWeatherDayTemp.className = 'data-weekly-temp';
+        weeklyWeatherDayTemp.textContent = daily[i].dayTemp;
+        weeklyWeatherDay.appendChild(weeklyWeatherDayTemp);
+
+        const weeklyWeatherDayTempUnit = document.createElement('span');
+        weeklyWeatherDayTempUnit.className = 'temp-unit';
+        weeklyWeatherDay.appendChild(weeklyWeatherDayTempUnit);
+
+        const weeklyWeatherNight = document.createElement('span');
+        weeklyWeatherNight.className = 'weekly-day-night-temp';
+        weeklyDay.appendChild(weeklyWeatherNight);
+
+        const weeklyWeatherNightTemp = document.createElement('span');
+        weeklyWeatherNightTemp.className = 'data-weekly-night-temp';
+        weeklyWeatherNightTemp.textContent = daily[i].nightTemp;
+        weeklyWeatherNight.appendChild(weeklyWeatherNightTemp);
+
+        const weeklyWeatherNightTempUnit = document.createElement('span');
+        weeklyWeatherNightTempUnit.className = 'temp-unit';
+        weeklyWeatherNight.appendChild(weeklyWeatherNightTempUnit);
+
+        const weeklyWindSpan = document.createElement('span');
+        weeklyWindSpan.classList.add('weekly-day-wind');
+        weeklyWindSpan.setAttribute(
+          'title',
+          getWind(daily[i].windSpeed, units).windDesc,
+        );
+        weeklyDay.appendChild(weeklyWindSpan);
+
+        const weeklyWindIcon = document.createElement('i');
+        weeklyWindIcon.className = 'icon-weekly-wind-degree far fa-long-arrow-up';
+        weeklyWindIcon.setAttribute(
+          'data-fa-transform',
+          `rotate-${getArrowDegree(daily[i].windDegree)}`,
+        );
+        weeklyWindSpan.appendChild(weeklyWindIcon);
+
+        const weeklyWindSpeed = document.createElement('span');
+        weeklyWindSpeed.className = 'data-weekly-wind-speed';
+        weeklyWindSpeed.textContent = getWind(daily[i].windSpeed, units).roundedSpeed;
+        weeklyWindSpan.appendChild(weeklyWindSpeed);
+
+        const weeklyWindSpeedUnit = document.createElement('span');
+        weeklyWindSpeedUnit.className = 'speed-unit';
+        weeklyWindSpan.appendChild(weeklyWindSpeedUnit);
+      }
+
+      changeUnits(units);
 
       console.log(data);
     }

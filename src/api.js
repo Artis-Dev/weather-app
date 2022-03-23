@@ -35,26 +35,33 @@ const api = (() => {
       hourly: [],
     };
 
-    for (let i = 0; i < 7; i += 1) {
-      processedData.daily[i] = {
-        dayTemp: forecastData.daily[i].temp.day,
-        nightTemp: forecastData.daily[i].temp.night,
-        weatherId: forecastData.daily[i].weather[0].id,
+    for (let i = 1; i <= 7; i += 1) {
+      processedData.daily[i - 1] = {
+        date: addSeconds(
+          fromUnixTime(forecastData.daily[i].dt),
+          forecastData.timezone_offset,
+        ),
+        icon: forecastData.daily[i].weather[0].icon,
         tempDescription: forecastData.daily[i].weather[0].description,
-        windSpeed: forecastData.daily[i].wind_speed,
-        windGust: forecastData.daily[i].wind_gust,
+        dayTemp: Math.round(forecastData.daily[i].temp.day),
+        nightTemp: Math.round(forecastData.daily[i].temp.night),
         windDegree: forecastData.daily[i].wind_deg,
+        windSpeed: forecastData.daily[i].wind_speed,
       };
     }
 
     for (let j = 0; j < 24; j += 1) {
       processedData.hourly[j] = {
-        temp: forecastData.hourly[j].temp,
-        weatherId: forecastData.hourly[j].weather[0].id,
+        date: addSeconds(
+          fromUnixTime(forecastData.hourly[j].dt),
+          forecastData.timezone_offset,
+        ),
+        icon: forecastData.hourly[j].weather[0].icon,
         tempDescription: forecastData.hourly[j].weather[0].description,
+        temp: forecastData.hourly[j].temp,
+        windDegree: forecastData.hourly[j].wind_deg,
         windSpeed: forecastData.hourly[j].wind_speed,
         windGust: forecastData.hourly[j].wind_gust,
-        windDegree: forecastData.hourly[j].wind_deg,
       };
     }
 
