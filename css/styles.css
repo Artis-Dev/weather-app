@@ -1,15 +1,20 @@
 :root {
-  --blue: #184F77;
-  --light-blue: #178BAD;
-  --white: #FFFFFF;
+  --blue: #184f77;
+  --light-blue: #178bad;
+  --dark-blue: #0e2d44;
+  --white: #ffffff;
   --transparent-white: rgba(255, 255, 255, 0.5);
-  --warning-green: #7EB356;
-  --warning-yellow: #F9C74F;
-  --warning-orange: #ED8607;
-  --warning-red: #F94144;
+  --warning-green: #7eb356;
+  --warning-yellow: #f9c74f;
+  --warning-orange: #ed8607;
+  --warning-red: #f94144;
 }
 
-body, p, h1, h2, h3 {
+body,
+p,
+h1,
+h2,
+h3 {
   margin: 0;
 }
 
@@ -22,26 +27,25 @@ body {
   background: var(--blue);
   background: -webkit-linear-gradient(top, var(--light-blue), var(--blue));
   background: -moz-linear-gradient(top, var(--light-blue), var(--blue));
-  background: linear-gradient(to bottom, var(--light-blue), var(--blue));;
+  background: linear-gradient(to bottom, var(--light-blue), var(--blue));
 }
 
 .wrapper {
   display: grid;
   min-height: 100vh;
-  grid-template-columns: 1fr minmax(0px, 992px) 1fr;
+  grid-template-columns: 1fr minmax(0px, 768px) 1fr;
   grid-template-rows: auto auto 1fr 70px;
   grid-template-areas:
-    "header header header"
-    ". error ."
-    ". main ."
-    "footer footer footer";
+    'header header header'
+    '. error .'
+    '. main .'
+    'footer footer footer';
 }
 
 .top-nav {
   grid-area: header;
   display: grid;
-  grid-template-areas:
-  "logo search settings";
+  grid-template-areas: 'logo search settings';
   align-items: center;
   grid-template-columns: 1fr 360px 1fr;
   padding: 0 32px;
@@ -60,12 +64,19 @@ body {
   justify-self: center;
 }
 
-.search > *:not(.error) {
-  background-color: #1c3242;
+.search > * {
+  background-color: var(--dark-blue);
   height: 40px;
   border: none;
   font-size: 18px;
   color: var(--white);
+  transition: all 0.3s;
+}
+
+.search-input:focus,
+.search-input:focus + .search-submit {
+  border: 2px solid var(--white);
+  transition: all 0.3s;
 }
 
 .search-input {
@@ -74,6 +85,8 @@ body {
   width: 256px;
   border-radius: 20px 0 0 20px;
   outline: none;
+  border: 2px solid var(--dark-blue);
+  border-right: none !important;
 }
 
 .search-submit {
@@ -81,6 +94,8 @@ body {
   width: 52px;
   line-height: 1;
   border-radius: 0 20px 20px 0;
+  border: 2px solid var(--dark-blue);
+  border-left: none !important;
 }
 
 .settings {
@@ -88,23 +103,23 @@ body {
   justify-self: end;
 }
 
-[class^='units'] {
+[class^='settings-'] {
   font-weight: 700;
   margin-left: 8px;
-  background-color: #1c3242;
-  transition: all .3s;
+  background-color: var(--dark-blue);
+  transition: all 0.3s;
   cursor: pointer;
   font-size: 14px;
   padding: 4px 16px;
   height: 40px;
   border-radius: 20px;
-  border: none;
+  border: 2px solid var(--dark-blue);
   color: var(--white);
 }
 
-[class^='units']:hover,
-[class^='units'].active {
-  background-color: var(--blue);
+[class^='settings-']:hover,
+[class^='settings-'].active {
+  border: 2px solid var(--white);
 }
 
 .info {
@@ -114,7 +129,7 @@ body {
 }
 
 .loading {
- font-size: 64px;
+  font-size: 64px;
 }
 
 .error {
@@ -130,12 +145,12 @@ body {
   display: grid;
   row-gap: 32px;
   column-gap: 32px;
-  grid-template-columns: auto auto;
+  grid-template-columns: 1fr auto;
   grid-template-rows: repeat(3, minmax(min-content, max-content));
   grid-template-areas:
-    "title title"
-    "weather details"
-    "weekly weekly";
+    'title title'
+    'weather details'
+    'weekly weekly';
   color: var(--white);
   margin: 32px;
   justify-items: center;
@@ -144,7 +159,10 @@ body {
 .section-heading {
   grid-area: title;
   text-align: center;
-  font-size: 32px;
+}
+
+.section-heading > h2 {
+  font-size: 40px;
 }
 
 .show {
@@ -179,7 +197,7 @@ body {
 }
 
 .big-data {
-  font-size: 48px;
+  font-size: 64px;
 }
 
 .weather-desc {
@@ -216,14 +234,17 @@ body {
   border-radius: 20px;
 }
 
-.uvi-green {background-color: var(--warning-green);}
-.uvi-yellow {background-color: var(--warning-yellow);}
-.uvi-orange {background-color: var(--warning-orange);}
-.uvi-red {background-color: var(--warning-red);}
-
-.data-moon {
-  height: 32px;
-  fill: white;
+.uvi-green {
+  background-color: var(--warning-green);
+}
+.uvi-yellow {
+  background-color: var(--warning-yellow);
+}
+.uvi-orange {
+  background-color: var(--warning-orange);
+}
+.uvi-red {
+  background-color: var(--warning-red);
 }
 
 .section-weekly {
@@ -233,7 +254,7 @@ body {
 
 .weekly-header {
   text-align: center;
-  font-size: 24px;
+  font-size: 32px;
   margin-bottom: 32px;
 }
 
@@ -252,8 +273,7 @@ body {
 }
 
 .icon-weekly-weather,
-.icon-wind-degree,
-.icon-weekly-wind-degree {
+.icon-wind-degree {
   margin-right: 8px;
 }
 
@@ -269,7 +289,7 @@ body {
 }
 
 .credits {
-  color: var(--transparent-white)
+  color: var(--transparent-white);
 }
 
 .credits a {
@@ -281,7 +301,7 @@ body {
   text-decoration: underline;
 }
 
-@media only screen and (max-width: 992px)   {
+@media only screen and (max-width: 992px) {
   .wrapper {
     grid-template-columns: auto 1fr auto;
     grid-template-rows: auto auto minmax(calc(100vh - 187px), auto) 70px;
@@ -290,18 +310,18 @@ body {
   .top-nav {
     grid-template-rows: auto;
     grid-template-areas:
-    "logo search ."
-    ". settings .";
+      'logo search .'
+      '. settings .';
   }
 
   .main-container {
     grid-template-columns: 1fr;
     grid-template-rows: repeat(4, minmax(min-content, max-content));
     grid-template-areas:
-      "title"
-      "weather"
-      "details"
-      "weekly";
+      'title'
+      'weather'
+      'details'
+      'weekly';
   }
 
   .settings {
@@ -318,22 +338,22 @@ body {
   }
 }
 
-@media only screen and (max-width: 768px)   {
+@media only screen and (max-width: 768px) {
   .wrapper {
     grid-template-columns: auto 1fr auto;
-    grid-template-rows: auto auto minmax(calc(100vh - 227px), auto) 70px
+    grid-template-rows: auto auto minmax(calc(100vh - 227px), auto) 70px;
   }
 
   .top-nav {
     grid-template-columns: 1fr 354px 1fr;
     grid-template-rows: auto 56px 40px;
     grid-template-areas:
-    ". logo ."
-    ". search ."
-    ". settings ."
+      '. logo .'
+      '. search .'
+      '. settings .';
   }
 
-  .top-nav > *:not(:last-child){
+  .top-nav > *:not(:last-child) {
     margin-bottom: 16px;
   }
 
@@ -351,8 +371,8 @@ body {
     justify-content: center;
     text-align: center;
     grid-template-areas:
-    "day wind"
-    "day-temp night-temp";
+      'day wind'
+      'day-temp night-temp';
   }
   .weekly-day-date {
     grid-area: day;
