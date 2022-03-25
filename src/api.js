@@ -1,8 +1,11 @@
 import { addSeconds, fromUnixTime } from 'date-fns';
 
 const api = (() => {
+  const API_KEY = 'c93fd1817f3fbe42aeac0a63076603b9';
   async function processData(data) {
-    const regionNamesInEnglish = new Intl.DisplayNames(['en'], { type: 'region' });
+    const regionNamesInEnglish = new Intl.DisplayNames(['en'], {
+      type: 'region',
+    });
     const { locationData, forecastData, units } = data;
     const processedData = {
       city: locationData.name,
@@ -72,7 +75,7 @@ const api = (() => {
     const { coord } = locationData;
     try {
       const response = await fetch(
-        `https://api.openweathermap.org/data/2.5/onecall?lat=${coord.lat}&lon=${coord.lon}&exclude=alerts,minutely&units=${units}&appid=c93fd1817f3fbe42aeac0a63076603b9`,
+        `https://api.openweathermap.org/data/2.5/onecall?lat=${coord.lat}&lon=${coord.lon}&exclude=alerts,minutely&units=${units}&appid=${API_KEY}`,
         { mode: 'cors' },
       );
       const forecastData = await response.json();
@@ -85,7 +88,7 @@ const api = (() => {
   async function getLocData(query, units = 'metric') {
     try {
       const response = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${query}&appid=c93fd1817f3fbe42aeac0a63076603b9`,
+        `https://api.openweathermap.org/data/2.5/weather?q=${query}&appid=${API_KEY}`,
         { mode: 'cors' },
       );
       const locData = await response.json();

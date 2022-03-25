@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Wthr - Weather app</title>
     <link href="css/styles.css" rel="stylesheet" />
-    <script defer src="fontawesome/brands.min.js"></script>
     <script defer src="fontawesome/regular.min.js"></script>
     <script defer src="fontawesome/fontawesome.min.js"></script>
     <link href="https://fonts.googleapis.com" rel="preconnect" />
@@ -34,8 +33,8 @@
           </button>
         </form>
         <div class="settings">
-          <button class="units-metric">°C, m/s</button>
-          <button class="units-imperial">°F, mph</button>
+          <button class="settings-metric">°C, m/s</button>
+          <button class="settings-imperial">°F, mph</button>
         </div>
       </nav>
       <div class="info">
@@ -53,14 +52,14 @@
           <div class="weather-main">
             <i class="big-icon icon-weather far fa-sun"></i
             ><span class="big-data">
-              <span class="data-temp"></span><span class="temp-unit"></span
+              <span class="data-temp"></span><span class="unit-temp"></span
             ></span>
           </div>
           <div>
             <p class="weather-desc data-temp-desc"></p>
             <p class="weather-details">
               Feels like <span class="data-feels-like"></span
-              ><span class="temp-unit"></span>
+              ><span class="unit-temp"></span>
             </p>
             <p class="weather-details data-wind-desc">Strong breeze</p>
           </div>
@@ -71,7 +70,7 @@
             <p class="details-data">
               <i class="far fa-long-arrow-up icon-wind-degree"></i
               ><span class="data-wind-speed"></span
-              ><span class="speed-unit"></span>
+              ><span class="unit-speed"></span>
             </p>
           </div>
           <div class="details">

@@ -20,10 +20,10 @@ const handlers = (() => {
         e.preventDefault();
         input = searchInput.value;
         load(input, units);
-      } else if (e.target.classList.contains('units-metric')) {
+      } else if (e.target.classList.contains('settings-metric')) {
         units = 'metric';
         load(input, units);
-      } else if (e.target.classList.contains('units-imperial')) {
+      } else if (e.target.classList.contains('settings-imperial')) {
         units = 'imperial';
         load(input, units);
       }

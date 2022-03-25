@@ -156,22 +156,22 @@ const dom = (() => {
   }
 
   function changeUnits(units) {
-    const metricButton = document.querySelector('.units-metric');
-    const imperialButton = document.querySelector('.units-imperial');
-    const tempUnits = document.querySelectorAll('.temp-unit');
-    const speedUnits = document.querySelectorAll('.speed-unit');
+    const metricButton = document.querySelector('.settings-metric');
+    const imperialButton = document.querySelector('.settings-imperial');
+    const tempUnits = document.querySelectorAll('.unit-temp');
+    const speedUnits = document.querySelectorAll('.unit-speed');
 
     let tempUnit;
     let windUnit;
 
     if (units === 'metric') {
-      metricButton.className = 'units-metric active';
-      imperialButton.className = 'units-imperial';
+      metricButton.className = 'settings-metric active';
+      imperialButton.className = 'settings-imperial';
       tempUnit = '°C';
       windUnit = 'm/s';
     } else {
-      imperialButton.className = 'units-imperial active';
-      metricButton.className = 'units-metric';
+      imperialButton.className = 'settings-imperial active';
+      metricButton.className = 'settings-metric';
       tempUnit = '°F';
       windUnit = 'mph';
     }
@@ -195,7 +195,10 @@ const dom = (() => {
       formattedSunsetTime = format(data, 'h:mm aa');
       formattedWeekDay = format(data, 'EEEE');
       return {
-        formattedTime, formattedSunriseTime, formattedSunsetTime, formattedWeekDay,
+        formattedTime,
+        formattedSunriseTime,
+        formattedSunsetTime,
+        formattedWeekDay,
       };
     }
     formattedTime = format(data, 'EEEE d MMMM yyyy | H:mm');
@@ -203,7 +206,10 @@ const dom = (() => {
     formattedSunsetTime = format(data, 'H:mm');
     formattedWeekDay = format(data, 'EEEE');
     return {
-      formattedTime, formattedSunriseTime, formattedSunsetTime, formattedWeekDay,
+      formattedTime,
+      formattedSunriseTime,
+      formattedSunsetTime,
+      formattedWeekDay,
     };
   }
 
@@ -212,28 +218,28 @@ const dom = (() => {
     const headingCity = document.querySelector('.data-city');
     const headingCountry = document.querySelector('.data-country');
     const headingCurrentTemp = document.querySelector('.data-temp');
-    const infoTime = document.querySelector('.data-time');
     const iconWeather = document.querySelector('.icon-weather');
     const iconWindDegree = document.querySelector('.icon-wind-degree');
-    const infoFeelsLike = document.querySelector('.data-feels-like');
-    const infoTempDesc = document.querySelector('.data-temp-desc');
-    const infoWindDesc = document.querySelector('.data-wind-desc');
-    const detailsWindSpeed = document.querySelector('.data-wind-speed');
-    const detailsHumidity = document.querySelector('.data-humidity');
-    const detailsVisibility = document.querySelector('.data-visibility');
-    const detailsClouds = document.querySelector('.data-clouds');
-    const detailsRainChance = document.querySelector('.data-rain-chance');
-    const detailsUvi = document.querySelector('.data-uvi');
-    const detailsSunrise = document.querySelector('.data-sunrise');
-    const detailsSunset = document.querySelector('.data-sunset');
-    const detailsMoon = document.querySelector('.data-moon');
+    const dataTime = document.querySelector('.data-time');
+    const dataFeelsLike = document.querySelector('.data-feels-like');
+    const dataTempDesc = document.querySelector('.data-temp-desc');
+    const dataWindDesc = document.querySelector('.data-wind-desc');
+    const dataWindSpeed = document.querySelector('.data-wind-speed');
+    const dataHumidity = document.querySelector('.data-humidity');
+    const dataVisibility = document.querySelector('.data-visibility');
+    const dataClouds = document.querySelector('.data-clouds');
+    const dataRainChance = document.querySelector('.data-rain-chance');
+    const dataUvi = document.querySelector('.data-uvi');
+    const dataSunrise = document.querySelector('.data-sunrise');
+    const dataSunset = document.querySelector('.data-sunset');
+    const dataMoon = document.querySelector('.data-moon');
     const weeklyList = document.querySelector('.weekly-list');
 
     if (data.cod) {
       error.className = 'error show';
       mainContainer.className = 'main-container hide';
       error.textContent = data.message.charAt(0).toUpperCase()
-      + data.message.slice(1);
+        + data.message.slice(1);
     } else {
       error.className = 'error hide';
       mainContainer.className = 'main-container';
@@ -247,33 +253,47 @@ const dom = (() => {
       headingCurrentTemp.textContent = current.temp;
 
       iconWeather.className.baseVal = '';
-      iconWeather.className.baseVal = `big-icon icon-weather far ${convertIcon(current.icon)}`;
+      iconWeather.className.baseVal = `big-icon icon-weather far ${convertIcon(
+        current.icon,
+      )}`;
 
       iconWindDegree.setAttribute(
         'data-fa-transform',
         `rotate-${getArrowDegree(current.windDegree)}`,
       );
 
-      infoTime.textContent = formatTime(current.time, units).formattedTime;
-      infoFeelsLike.textContent = current.feelsLike;
-      infoTempDesc.textContent = current.tempDescription.charAt(0).toUpperCase()
+      dataTime.textContent = formatTime(current.time, units).formattedTime;
+      dataFeelsLike.textContent = current.feelsLike;
+      dataTempDesc.textContent = current.tempDescription.charAt(0).toUpperCase()
         + current.tempDescription.slice(1);
-      infoWindDesc.textContent = getWind(current.windSpeed, units).windDesc;
+      dataWindDesc.textContent = getWind(current.windSpeed, units).windDesc;
 
-      detailsWindSpeed.textContent = getWind(current.windSpeed, units).roundedSpeed;
-      detailsHumidity.textContent = current.humidity;
-      detailsVisibility.textContent = current.visibility;
-      detailsClouds.textContent = current.clouds;
-      detailsRainChance.textContent = current.chanceOfRain;
-      detailsUvi.textContent = current.uvi;
+      dataWindSpeed.textContent = getWind(
+        current.windSpeed,
+        units,
+      ).roundedSpeed;
+      dataHumidity.textContent = current.humidity;
+      dataVisibility.textContent = current.visibility;
+      dataClouds.textContent = current.clouds;
+      dataRainChance.textContent = current.chanceOfRain;
+      dataUvi.textContent = current.uvi;
 
-      detailsUvi.className = '';
-      detailsUvi.className = getUviColor(current.uvi);
+      dataUvi.className = '';
+      dataUvi.className = getUviColor(current.uvi);
 
-      detailsSunrise.textContent = formatTime(current.sunriseTime, units).formattedSunriseTime;
-      detailsSunset.textContent = formatTime(current.sunsetTime, units).formattedSunsetTime;
-      detailsMoon.setAttribute('src', getMoonIcon(current.moonPhase).moonIcon);
-      detailsMoon.setAttribute('title', getMoonIcon(current.moonPhase).moonName);
+      dataSunrise.textContent = formatTime(
+        current.sunriseTime,
+        units,
+      ).formattedSunriseTime;
+      dataSunset.textContent = formatTime(
+        current.sunsetTime,
+        units,
+      ).formattedSunsetTime;
+      dataMoon.setAttribute('src', getMoonIcon(current.moonPhase).moonIcon);
+      dataMoon.setAttribute(
+        'title',
+        getMoonIcon(current.moonPhase).moonName,
+      );
 
       weeklyList.textContent = '';
 
@@ -284,12 +304,11 @@ const dom = (() => {
 
         const weeklyDateSpan = document.createElement('span');
         weeklyDateSpan.classList.add('data-weekly-date', 'weekly-day-date');
-        weeklyDateSpan.textContent = formatTime(daily[i].date, units).formattedWeekDay;
+        weeklyDateSpan.textContent = formatTime(
+          daily[i].date,
+          units,
+        ).formattedWeekDay;
         weeklyDay.appendChild(weeklyDateSpan);
-
-        // const weeklyWeatherSpan = document.createElement('span');
-        // weeklyWeatherSpan.classList.add('weekly-day-weather');
-        // weeklyDay.appendChild(weeklyWeatherSpan);
 
         const weeklyWeatherDay = document.createElement('span');
         weeklyWeatherDay.className = 'weekly-day-day-temp';
@@ -301,7 +320,9 @@ const dom = (() => {
         weeklyDay.appendChild(weeklyWeatherDay);
 
         const weeklyWeatherIcon = document.createElement('i');
-        weeklyWeatherIcon.className = `icon-weekly-weather far ${convertIcon(daily[i].icon)} fa-fw`;
+        weeklyWeatherIcon.className = `icon-weekly-weather far ${convertIcon(
+          daily[i].icon,
+        )} fa-fw`;
         weeklyWeatherDay.appendChild(weeklyWeatherIcon);
 
         const weeklyWeatherDayTemp = document.createElement('span');
@@ -310,7 +331,7 @@ const dom = (() => {
         weeklyWeatherDay.appendChild(weeklyWeatherDayTemp);
 
         const weeklyWeatherDayTempUnit = document.createElement('span');
-        weeklyWeatherDayTempUnit.className = 'temp-unit';
+        weeklyWeatherDayTempUnit.className = 'unit-temp';
         weeklyWeatherDay.appendChild(weeklyWeatherDayTempUnit);
 
         const weeklyWeatherNight = document.createElement('span');
@@ -323,7 +344,7 @@ const dom = (() => {
         weeklyWeatherNight.appendChild(weeklyWeatherNightTemp);
 
         const weeklyWeatherNightTempUnit = document.createElement('span');
-        weeklyWeatherNightTempUnit.className = 'temp-unit';
+        weeklyWeatherNightTempUnit.className = 'unit-temp';
         weeklyWeatherNight.appendChild(weeklyWeatherNightTempUnit);
 
         const weeklyWindSpan = document.createElement('span');
@@ -335,7 +356,7 @@ const dom = (() => {
         weeklyDay.appendChild(weeklyWindSpan);
 
         const weeklyWindIcon = document.createElement('i');
-        weeklyWindIcon.className = 'icon-weekly-wind-degree far fa-long-arrow-up';
+        weeklyWindIcon.className = 'icon-wind-degree far fa-long-arrow-up';
         weeklyWindIcon.setAttribute(
           'data-fa-transform',
           `rotate-${getArrowDegree(daily[i].windDegree)}`,
@@ -344,17 +365,18 @@ const dom = (() => {
 
         const weeklyWindSpeed = document.createElement('span');
         weeklyWindSpeed.className = 'data-weekly-wind-speed';
-        weeklyWindSpeed.textContent = getWind(daily[i].windSpeed, units).roundedSpeed;
+        weeklyWindSpeed.textContent = getWind(
+          daily[i].windSpeed,
+          units,
+        ).roundedSpeed;
         weeklyWindSpan.appendChild(weeklyWindSpeed);
 
         const weeklyWindSpeedUnit = document.createElement('span');
-        weeklyWindSpeedUnit.className = 'speed-unit';
+        weeklyWindSpeedUnit.className = 'unit-speed';
         weeklyWindSpan.appendChild(weeklyWindSpeedUnit);
       }
 
       changeUnits(units);
-
-      console.log(data);
     }
   }
 
