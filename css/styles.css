@@ -70,13 +70,13 @@ body {
   border: none;
   font-size: 18px;
   color: var(--white);
-  transition: all 0.3s;
+  transition: border 0.3s;
 }
 
 .search-input:focus,
 .search-input:focus + .search-submit {
   border: 2px solid var(--white);
-  transition: all 0.3s;
+  transition: border 0.3s;
 }
 
 .search-input {
@@ -347,7 +347,7 @@ body {
   }
 
   .top-nav {
-    grid-template-columns: 1fr 354px 1fr;
+    grid-template-columns: 1fr 280px 1fr;
     grid-template-rows: auto 56px 40px;
     grid-template-areas:
       '. logo .'
@@ -367,8 +367,18 @@ body {
     text-align: center;
   }
 
+  .search-input {
+    width: 224px;
+  }
+
+  .section-weather {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
   .daily-item {
-    grid-template-columns: 128px 128px;
+    grid-template-columns: 128px 92px;
     grid-template-rows: auto auto;
     justify-content: center;
     text-align: center;
