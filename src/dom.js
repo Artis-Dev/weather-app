@@ -122,35 +122,35 @@ const dom = (() => {
 
     if (moonPhase === 0 || moonPhase === 1) {
       moonName = 'New Moon';
-      moonIcon = './svg/moon-new.svg';
+      moonIcon = './assets/svg/moon-new.svg';
     }
     if (moonPhase === 0.25) {
       moonName = 'First Quarter Moon';
-      moonIcon = './svg/moon-first-quarter.svg';
+      moonIcon = './assets/svg/moon-first-quarter.svg';
     }
     if (moonPhase === 0.5) {
       moonName = 'Full Moon';
-      moonIcon = './svg/moon-full.svg';
+      moonIcon = './assets/svg/moon-full.svg';
     }
     if (moonPhase === 0.75) {
       moonName = 'Last Quarter Moon';
-      moonIcon = './svg/moon-last-quarter.svg';
+      moonIcon = './assets/svg/moon-last-quarter.svg';
     }
     if (moonPhase > 0 && moonPhase < 0.25) {
       moonName = 'Waxing Crescent';
-      moonIcon = './svg/moon-waxing-crescent.svg';
+      moonIcon = './assets/svg/moon-waxing-crescent.svg';
     }
     if (moonPhase > 0.25 && moonPhase < 0.5) {
       moonName = 'Waxing Gibbous';
-      moonIcon = './svg/moon-waxing-gibbous.svg';
+      moonIcon = './assets/svg/moon-waxing-gibbous.svg';
     }
     if (moonPhase > 0.5 && moonPhase < 0.75) {
       moonName = 'Waning Gibbous';
-      moonIcon = './svg/moon-waning-gibbous.svg';
+      moonIcon = './assets/svg/moon-waning-gibbous.svg';
     }
     if (moonPhase > 0.75 && moonPhase < 1) {
       moonName = 'Waning Crescent';
-      moonIcon = './svg/moon-waning-crescent.svg';
+      moonIcon = './assets/svg/moon-waning-crescent.svg';
     }
     return { moonName, moonIcon };
   }
@@ -213,13 +213,87 @@ const dom = (() => {
     };
   }
 
-  function renderForecast(data) {
-    const error = document.querySelector('.error');
-    const headingCity = document.querySelector('.data-city');
-    const headingCountry = document.querySelector('.data-country');
-    const headingCurrentTemp = document.querySelector('.data-temp');
+  function renderWeeklyForecast(daily, units) {
+    const dailyList = document.querySelector('.daily-list');
+
+    dailyList.textContent = '';
+
+    for (let i = 0; i < daily.length; i += 1) {
+      const dailyItem = document.createElement('div');
+      dailyItem.className = 'daily-item';
+      const dailyDate = document.createElement('span');
+      dailyDate.className = 'data-daily-date daily-item-date';
+      dailyDate.textContent = formatTime(
+        daily[i].date,
+        units,
+      ).formattedWeekDay;
+      const dailyWeatherDay = document.createElement('span');
+      dailyWeatherDay.className = 'daily-item-day-temp';
+      dailyWeatherDay.setAttribute(
+        'title',
+        daily[i].tempDescription.charAt(0).toUpperCase()
+          + daily[i].tempDescription.slice(1),
+      );
+      const dailyWeatherIcon = document.createElement('i');
+      dailyWeatherIcon.className = `icon-daily-weather far fa-fw ${convertIcon(
+        daily[i].icon,
+      )}`;
+      const dailyWeatherDayTemp = document.createElement('span');
+      dailyWeatherDayTemp.className = 'data-daily-temp';
+      dailyWeatherDayTemp.textContent = daily[i].dayTemp;
+      const dailyWeatherDayTempUnit = document.createElement('span');
+      dailyWeatherDayTempUnit.className = 'unit-temp';
+      const dailyWeatherNight = document.createElement('span');
+      dailyWeatherNight.className = 'daily-item-night-temp';
+      const dailyWeatherNightTemp = document.createElement('span');
+      dailyWeatherNightTemp.className = 'data-daily-night-temp';
+      dailyWeatherNightTemp.textContent = daily[i].nightTemp;
+      const dailyWeatherNightTempUnit = document.createElement('span');
+      dailyWeatherNightTempUnit.className = 'unit-temp';
+
+      const dailyWind = document.createElement('span');
+      dailyWind.className = 'daily-item-wind';
+      dailyWind.setAttribute(
+        'title',
+        getWind(daily[i].windSpeed, units).windDesc,
+      );
+      const dailyWindIcon = document.createElement('i');
+      dailyWindIcon.className = 'icon-wind-degree far fa-long-arrow-up';
+      dailyWindIcon.setAttribute(
+        'data-fa-transform',
+        `rotate-${getArrowDegree(daily[i].windDegree)}`,
+      );
+      const dailyWindSpeed = document.createElement('span');
+      dailyWindSpeed.className = 'data-daily-wind-speed';
+      dailyWindSpeed.textContent = getWind(
+        daily[i].windSpeed,
+        units,
+      ).roundedSpeed;
+      const dailyWindSpeedUnit = document.createElement('span');
+      dailyWindSpeedUnit.className = 'unit-speed';
+
+      dailyList.appendChild(dailyItem);
+      dailyItem.appendChild(dailyDate);
+      dailyItem.appendChild(dailyWeatherDay);
+      dailyWeatherDay.appendChild(dailyWeatherIcon);
+      dailyWeatherDay.appendChild(dailyWeatherDayTemp);
+      dailyWeatherDay.appendChild(dailyWeatherDayTempUnit);
+      dailyItem.appendChild(dailyWeatherNight);
+      dailyWeatherNight.appendChild(dailyWeatherNightTemp);
+      dailyWeatherNight.appendChild(dailyWeatherNightTempUnit);
+      dailyItem.appendChild(dailyWind);
+      dailyWind.appendChild(dailyWindIcon);
+      dailyWind.appendChild(dailyWindSpeed);
+      dailyWind.appendChild(dailyWindSpeedUnit);
+    }
+  }
+
+  function renderForecast(city, country, current, units) {
     const iconWeather = document.querySelector('.icon-weather');
     const iconWindDegree = document.querySelector('.icon-wind-degree');
+    const dataCity = document.querySelector('.data-city');
+    const dataCountry = document.querySelector('.data-country');
+    const dataCurrentTemp = document.querySelector('.data-temp');
     const dataTime = document.querySelector('.data-time');
     const dataFeelsLike = document.querySelector('.data-feels-like');
     const dataTempDesc = document.querySelector('.data-temp-desc');
@@ -233,7 +307,54 @@ const dom = (() => {
     const dataSunrise = document.querySelector('.data-sunrise');
     const dataSunset = document.querySelector('.data-sunset');
     const dataMoon = document.querySelector('.data-moon');
-    const weeklyList = document.querySelector('.weekly-list');
+
+    const currentIcon = document.createElement('i');
+    currentIcon.className = `big-icon far ${convertIcon(
+      current.icon,
+    )}`;
+    iconWeather.textContent = '';
+    iconWeather.appendChild(currentIcon);
+
+    iconWindDegree.setAttribute(
+      'data-fa-transform',
+      `rotate-${getArrowDegree(current.windDegree)}`,
+    );
+
+    dataCity.textContent = city;
+    dataCountry.textContent = country;
+    dataCurrentTemp.textContent = current.temp;
+    dataTime.textContent = formatTime(current.time, units).formattedTime;
+    dataFeelsLike.textContent = current.feelsLike;
+    dataTempDesc.textContent = current.tempDescription.charAt(0).toUpperCase()
+      + current.tempDescription.slice(1);
+    dataWindDesc.textContent = getWind(current.windSpeed, units).windDesc;
+    dataWindSpeed.textContent = getWind(
+      current.windSpeed,
+      units,
+    ).roundedSpeed;
+    dataHumidity.textContent = current.humidity;
+    dataVisibility.textContent = current.visibility;
+    dataClouds.textContent = current.clouds;
+    dataRainChance.textContent = current.chanceOfRain;
+    dataUvi.textContent = current.uvi;
+    dataUvi.className = getUviColor(current.uvi);
+    dataSunrise.textContent = formatTime(
+      current.sunriseTime,
+      units,
+    ).formattedSunriseTime;
+    dataSunset.textContent = formatTime(
+      current.sunsetTime,
+      units,
+    ).formattedSunsetTime;
+    dataMoon.setAttribute('src', getMoonIcon(current.moonPhase).moonIcon);
+    dataMoon.setAttribute(
+      'title',
+      getMoonIcon(current.moonPhase).moonName,
+    );
+  }
+
+  function renderApp(data) {
+    const error = document.querySelector('.error');
 
     if (data.cod) {
       error.className = 'error show';
@@ -245,144 +366,18 @@ const dom = (() => {
       mainContainer.className = 'main-container';
 
       const {
-        city, country, units, current, daily,
+        city, country, current, daily, units,
       } = data;
 
-      headingCity.textContent = city;
-      headingCountry.textContent = country;
-      headingCurrentTemp.textContent = current.temp;
-
-      iconWeather.className.baseVal = '';
-      iconWeather.className.baseVal = `big-icon icon-weather far ${convertIcon(
-        current.icon,
-      )}`;
-
-      iconWindDegree.setAttribute(
-        'data-fa-transform',
-        `rotate-${getArrowDegree(current.windDegree)}`,
-      );
-
-      dataTime.textContent = formatTime(current.time, units).formattedTime;
-      dataFeelsLike.textContent = current.feelsLike;
-      dataTempDesc.textContent = current.tempDescription.charAt(0).toUpperCase()
-        + current.tempDescription.slice(1);
-      dataWindDesc.textContent = getWind(current.windSpeed, units).windDesc;
-
-      dataWindSpeed.textContent = getWind(
-        current.windSpeed,
-        units,
-      ).roundedSpeed;
-      dataHumidity.textContent = current.humidity;
-      dataVisibility.textContent = current.visibility;
-      dataClouds.textContent = current.clouds;
-      dataRainChance.textContent = current.chanceOfRain;
-      dataUvi.textContent = current.uvi;
-
-      dataUvi.className = '';
-      dataUvi.className = getUviColor(current.uvi);
-
-      dataSunrise.textContent = formatTime(
-        current.sunriseTime,
-        units,
-      ).formattedSunriseTime;
-      dataSunset.textContent = formatTime(
-        current.sunsetTime,
-        units,
-      ).formattedSunsetTime;
-      dataMoon.setAttribute('src', getMoonIcon(current.moonPhase).moonIcon);
-      dataMoon.setAttribute(
-        'title',
-        getMoonIcon(current.moonPhase).moonName,
-      );
-
-      weeklyList.textContent = '';
-
-      for (let i = 0; i < daily.length; i += 1) {
-        const weeklyDay = document.createElement('div');
-        weeklyDay.classList.add('weekly-day');
-        weeklyList.appendChild(weeklyDay);
-
-        const weeklyDateSpan = document.createElement('span');
-        weeklyDateSpan.classList.add('data-weekly-date', 'weekly-day-date');
-        weeklyDateSpan.textContent = formatTime(
-          daily[i].date,
-          units,
-        ).formattedWeekDay;
-        weeklyDay.appendChild(weeklyDateSpan);
-
-        const weeklyWeatherDay = document.createElement('span');
-        weeklyWeatherDay.className = 'weekly-day-day-temp';
-        weeklyWeatherDay.setAttribute(
-          'title',
-          daily[i].tempDescription.charAt(0).toUpperCase()
-            + daily[i].tempDescription.slice(1),
-        );
-        weeklyDay.appendChild(weeklyWeatherDay);
-
-        const weeklyWeatherIcon = document.createElement('i');
-        weeklyWeatherIcon.className = `icon-weekly-weather far ${convertIcon(
-          daily[i].icon,
-        )} fa-fw`;
-        weeklyWeatherDay.appendChild(weeklyWeatherIcon);
-
-        const weeklyWeatherDayTemp = document.createElement('span');
-        weeklyWeatherDayTemp.className = 'data-weekly-temp';
-        weeklyWeatherDayTemp.textContent = daily[i].dayTemp;
-        weeklyWeatherDay.appendChild(weeklyWeatherDayTemp);
-
-        const weeklyWeatherDayTempUnit = document.createElement('span');
-        weeklyWeatherDayTempUnit.className = 'unit-temp';
-        weeklyWeatherDay.appendChild(weeklyWeatherDayTempUnit);
-
-        const weeklyWeatherNight = document.createElement('span');
-        weeklyWeatherNight.className = 'weekly-day-night-temp';
-        weeklyDay.appendChild(weeklyWeatherNight);
-
-        const weeklyWeatherNightTemp = document.createElement('span');
-        weeklyWeatherNightTemp.className = 'data-weekly-night-temp';
-        weeklyWeatherNightTemp.textContent = daily[i].nightTemp;
-        weeklyWeatherNight.appendChild(weeklyWeatherNightTemp);
-
-        const weeklyWeatherNightTempUnit = document.createElement('span');
-        weeklyWeatherNightTempUnit.className = 'unit-temp';
-        weeklyWeatherNight.appendChild(weeklyWeatherNightTempUnit);
-
-        const weeklyWindSpan = document.createElement('span');
-        weeklyWindSpan.classList.add('weekly-day-wind');
-        weeklyWindSpan.setAttribute(
-          'title',
-          getWind(daily[i].windSpeed, units).windDesc,
-        );
-        weeklyDay.appendChild(weeklyWindSpan);
-
-        const weeklyWindIcon = document.createElement('i');
-        weeklyWindIcon.className = 'icon-wind-degree far fa-long-arrow-up';
-        weeklyWindIcon.setAttribute(
-          'data-fa-transform',
-          `rotate-${getArrowDegree(daily[i].windDegree)}`,
-        );
-        weeklyWindSpan.appendChild(weeklyWindIcon);
-
-        const weeklyWindSpeed = document.createElement('span');
-        weeklyWindSpeed.className = 'data-weekly-wind-speed';
-        weeklyWindSpeed.textContent = getWind(
-          daily[i].windSpeed,
-          units,
-        ).roundedSpeed;
-        weeklyWindSpan.appendChild(weeklyWindSpeed);
-
-        const weeklyWindSpeedUnit = document.createElement('span');
-        weeklyWindSpeedUnit.className = 'unit-speed';
-        weeklyWindSpan.appendChild(weeklyWindSpeedUnit);
-      }
-
       changeUnits(units);
+      renderForecast(city, country, current, units);
+      renderWeeklyForecast(daily, units);
     }
   }
 
   return {
     loading,
-    renderForecast,
+    renderApp,
   };
 })();
 

@@ -34,7 +34,7 @@ body {
   display: grid;
   min-height: 100vh;
   grid-template-columns: 1fr minmax(0px, 768px) 1fr;
-  grid-template-rows: auto auto 1fr 70px;
+  grid-template-rows: 76px auto 1fr 70px;
   grid-template-areas:
     'header header header'
     '. error .'
@@ -104,6 +104,7 @@ body {
 }
 
 [class^='settings-'] {
+  font-family: 'Nunito', sans-serif;
   font-weight: 700;
   margin-left: 8px;
   background-color: var(--dark-blue);
@@ -150,7 +151,7 @@ body {
   grid-template-areas:
     'title title'
     'weather details'
-    'weekly weekly';
+    'daily daily';
   color: var(--white);
   margin: 32px;
   justify-items: center;
@@ -247,18 +248,19 @@ body {
   background-color: var(--warning-red);
 }
 
-.section-weekly {
-  grid-area: weekly;
-  min-width: 386px;
+.section-daily {
+  grid-area: daily;
+  width: 100%;
+  max-width: 480px;
 }
 
-.weekly-header {
+.daily-header {
   text-align: center;
   font-size: 32px;
   margin-bottom: 32px;
 }
 
-.weekly-day {
+.daily-item {
   display: grid;
   grid-template-columns: 128px 96px 64px 96px;
   font-size: 20px;
@@ -266,18 +268,18 @@ body {
   row-gap: 4px;
 }
 
-.weekly-day:not(:last-child) {
+.daily-item:not(:last-child) {
   margin-bottom: 16px;
   padding-bottom: 16px;
   border-bottom: 2px solid var(--transparent-white);
 }
 
-.icon-weekly-weather,
+.icon-daily-weather,
 .icon-wind-degree {
   margin-right: 8px;
 }
 
-.weekly-day-night-temp {
+.daily-item-night-temp {
   color: var(--transparent-white);
 }
 
@@ -321,7 +323,7 @@ body {
       'title'
       'weather'
       'details'
-      'weekly';
+      'daily';
   }
 
   .settings {
@@ -365,7 +367,7 @@ body {
     text-align: center;
   }
 
-  .weekly-day {
+  .daily-item {
     grid-template-columns: 128px 128px;
     grid-template-rows: auto auto;
     justify-content: center;
@@ -374,16 +376,16 @@ body {
       'day wind'
       'day-temp night-temp';
   }
-  .weekly-day-date {
+  .daily-item-date {
     grid-area: day;
   }
-  .weekly-day-temp {
+  .daily-item-temp {
     grid-area: day-temp;
   }
-  .weekly-day-night-date {
+  .daily-item-night-date {
     grid-area: night-temp;
   }
-  .weekly-day-wind {
+  .daily-item-wind {
     grid-area: wind;
   }
 }

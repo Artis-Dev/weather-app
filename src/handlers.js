@@ -8,7 +8,7 @@ const handlers = (() => {
   async function load(input = 'Amsterdam', units = 'metric') {
     dom.loading('loading');
     const weatherData = await api.getLocData(input, units);
-    dom.renderForecast(weatherData);
+    dom.renderApp(weatherData);
     dom.loading('finished');
   }
 
@@ -16,7 +16,7 @@ const handlers = (() => {
     let input;
     let units;
     topNav.addEventListener('click', async (e) => {
-      if (e.target.classList.contains('submit')) {
+      if (e.target.classList.contains('submit') || e.target.parentElement.classList.contains('submit')) {
         e.preventDefault();
         input = searchInput.value;
         load(input, units);
