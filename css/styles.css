@@ -147,7 +147,7 @@ body {
   display: grid;
   row-gap: 32px;
   column-gap: 32px;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: auto 1fr;
   grid-template-rows: repeat(3, minmax(min-content, max-content));
   grid-template-areas:
     'title title'
