@@ -116,7 +116,7 @@ const dom = (() => {
     return { windDesc, roundedSpeed };
   }
 
-  function getMoonIcon(moonPhase) {
+  function getMoon(moonPhase) {
     let moonIcon = '';
     let moonName = '';
 
@@ -191,8 +191,8 @@ const dom = (() => {
     let formattedWeekDay;
     if (units === 'imperial') {
       formattedTime = format(data, 'EEEE d MMMM yyyy | h:mm aa');
-      formattedSunriseTime = format(data, 'h:mm aa');
-      formattedSunsetTime = format(data, 'h:mm aa');
+      formattedSunriseTime = format(data, 'hh:mm aa');
+      formattedSunsetTime = format(data, 'hh:mm aa');
       formattedWeekDay = format(data, 'EEEE');
       return {
         formattedTime,
@@ -202,8 +202,8 @@ const dom = (() => {
       };
     }
     formattedTime = format(data, 'EEEE d MMMM yyyy | H:mm');
-    formattedSunriseTime = format(data, 'H:mm');
-    formattedSunsetTime = format(data, 'H:mm');
+    formattedSunriseTime = format(data, 'HH:mm');
+    formattedSunsetTime = format(data, 'HH:mm');
     formattedWeekDay = format(data, 'EEEE');
     return {
       formattedTime,
@@ -307,6 +307,7 @@ const dom = (() => {
     const dataSunrise = document.querySelector('.data-sunrise');
     const dataSunset = document.querySelector('.data-sunset');
     const dataMoon = document.querySelector('.data-moon');
+    const dataMoonIcon = document.querySelector('.data-moon-icon');
 
     const currentIcon = document.createElement('i');
     currentIcon.className = `big-icon far ${convertIcon(
@@ -346,10 +347,11 @@ const dom = (() => {
       current.sunsetTime,
       units,
     ).formattedSunsetTime;
-    dataMoon.setAttribute('src', getMoonIcon(current.moonPhase).moonIcon);
-    dataMoon.setAttribute(
+    dataMoon.textContent = getMoon(current.moonPhase).moonName;
+    dataMoonIcon.setAttribute('src', getMoon(current.moonPhase).moonIcon);
+    dataMoonIcon.setAttribute(
       'title',
-      getMoonIcon(current.moonPhase).moonName,
+      getMoon(current.moonPhase).moonName,
     );
   }
 
