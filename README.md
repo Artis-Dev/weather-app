@@ -86,7 +86,7 @@ You will need `Node.js` and `npm` installed globally on your machine.
    ```
 5. Build an app
    ```sh
-   npm run build;
+   npm run build
    ```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
