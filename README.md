@@ -23,12 +23,14 @@
 
 ![screenshot](https://user-images.githubusercontent.com/20213395/161284975-55359134-4c84-49dd-bfda-3bd1b5ee86f9.png)
 
+Learning project from [The Odin Project](https://www.theodinproject.com/lessons/node-path-javascript-weather-app) curriculum.
+
 ### Features
 
-* Get current and weekly forecast
-* Search cities worldwide
-* Switch between imperial and metric formats
-* Responsive design
+* Get current and weekly forecast.
+* Search cities worldwide.
+* Switch between imperial and metric systems.
+* Responsive design.
 
 ### Built With
 
@@ -93,7 +95,7 @@ You will need `Node.js` and `npm` installed globally on your machine.
 
 ## Usage
 
-* Open `./dist/index.html` file with browser
+* Open `./dist/index.html` file with browser.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -102,14 +104,16 @@ You will need `Node.js` and `npm` installed globally on your machine.
 <!-- OUTCOME -->
 ## Outcome
 
-* Used **revealing module** pattern for better code organizing.
-* Used **public API** to get data.
-* Used **third-party library** for date and time formating.
-* Used CSS3 **grid** and **flex** to create layout.
-* Used HTML5 **semantic elements** for better readability and structure.
-* Used **Git** and **GitHub** for project management.
-* Tried to maintain **clean code**.
-* **Cross tested** on Firefox and Chromium based browsers.
+* Used revealing module pattern for better code organizing.
+* Used public API to get data.
+* Used Webpack to build the app.
+* Used third-party library for date and time formating.
+* Used CSS3 grid and flex to create layout.
+* Used HTML5 semantic elements for better readability and structure.
+* Used Git and GitHub for project management.
+* Learned error handling a bit.
+* Tried to maintain clean code.
+* Cross tested on Firefox and Chromium based browsers.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
