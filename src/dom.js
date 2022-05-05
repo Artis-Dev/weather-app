@@ -53,18 +53,6 @@ const dom = (() => {
     return false;
   }
 
-  function getArrowDegree(windDegree) {
-    let arrowDegree = 0;
-    if (windDegree === 0) {
-      arrowDegree = 180;
-    } else if (windDegree > 0) {
-      arrowDegree = windDegree - 180;
-    } else {
-      arrowDegree = windDegree + 180;
-    }
-    return arrowDegree;
-  }
-
   function getUviColor(uvi) {
     let uviColor = '';
     if (uvi <= 2) {
@@ -258,10 +246,10 @@ const dom = (() => {
         getWind(daily[i].windSpeed, units).windDesc,
       );
       const dailyWindIcon = document.createElement('i');
-      dailyWindIcon.className = 'icon-wind-degree far fa-long-arrow-up';
+      dailyWindIcon.className = 'icon-wind-degree far fa-long-arrow-down';
       dailyWindIcon.setAttribute(
         'data-fa-transform',
-        `rotate-${getArrowDegree(daily[i].windDegree)}`,
+        `rotate-${daily[i].windDegree}`,
       );
       const dailyWindSpeed = document.createElement('span');
       dailyWindSpeed.className = 'data-daily-wind-speed';
@@ -318,7 +306,7 @@ const dom = (() => {
 
     iconWindDegree.setAttribute(
       'data-fa-transform',
-      `rotate-${getArrowDegree(current.windDegree)}`,
+      `rotate-${current.windDegree}`,
     );
 
     dataCity.textContent = city;
