@@ -16,7 +16,10 @@ const handlers = (() => {
     let input;
     let units;
     topNav.addEventListener('click', async (e) => {
-      if (e.target.classList.contains('submit') || e.target.parentElement.classList.contains('submit')) {
+      if (
+        e.target.classList.contains('submit') ||
+        e.target.parentElement.classList.contains('submit')
+      ) {
         e.preventDefault();
         input = searchInput.value;
         load(input, units);

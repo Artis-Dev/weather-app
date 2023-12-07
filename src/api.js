@@ -25,16 +25,16 @@ const api = (() => {
         chanceOfRain: Math.round(forecastData.daily[0].pop * 100),
         sunriseTime: addSeconds(
           fromUnixTime(forecastData.current.sunrise),
-          forecastData.timezone_offset + (new Date().getTimezoneOffset() * 60),
+          forecastData.timezone_offset + new Date().getTimezoneOffset() * 60,
         ),
         sunsetTime: addSeconds(
           fromUnixTime(forecastData.current.sunset),
-          forecastData.timezone_offset + (new Date().getTimezoneOffset() * 60),
+          forecastData.timezone_offset + new Date().getTimezoneOffset() * 60,
         ),
         moonPhase: forecastData.daily[0].moon_phase,
         time: addSeconds(
           new Date(),
-          forecastData.timezone_offset + (new Date().getTimezoneOffset() * 60),
+          forecastData.timezone_offset + new Date().getTimezoneOffset() * 60,
         ),
       },
       daily: [],

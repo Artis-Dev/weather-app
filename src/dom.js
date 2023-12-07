@@ -211,16 +211,13 @@ const dom = (() => {
       dailyItem.className = 'daily-item';
       const dailyDate = document.createElement('span');
       dailyDate.className = 'data-daily-date daily-item-date';
-      dailyDate.textContent = formatTime(
-        daily[i].date,
-        units,
-      ).formattedWeekDay;
+      dailyDate.textContent = formatTime(daily[i].date, units).formattedWeekDay;
       const dailyWeatherDay = document.createElement('span');
       dailyWeatherDay.className = 'daily-item-day-temp';
       dailyWeatherDay.setAttribute(
         'title',
-        daily[i].tempDescription.charAt(0).toUpperCase()
-          + daily[i].tempDescription.slice(1),
+        daily[i].tempDescription.charAt(0).toUpperCase() +
+          daily[i].tempDescription.slice(1),
       );
       const dailyWeatherIcon = document.createElement('i');
       dailyWeatherIcon.className = `icon-daily-weather far fa-fw ${convertIcon(
@@ -298,9 +295,7 @@ const dom = (() => {
     const dataMoonIcon = document.querySelector('.data-moon-icon');
 
     const currentIcon = document.createElement('i');
-    currentIcon.className = `big-icon far ${convertIcon(
-      current.icon,
-    )}`;
+    currentIcon.className = `big-icon far ${convertIcon(current.icon)}`;
     iconWeather.textContent = '';
     iconWeather.appendChild(currentIcon);
 
@@ -314,13 +309,11 @@ const dom = (() => {
     dataCurrentTemp.textContent = current.temp;
     dataTime.textContent = formatTime(current.time, units).formattedTime;
     dataFeelsLike.textContent = current.feelsLike;
-    dataTempDesc.textContent = current.tempDescription.charAt(0).toUpperCase()
-      + current.tempDescription.slice(1);
+    dataTempDesc.textContent =
+      current.tempDescription.charAt(0).toUpperCase() +
+      current.tempDescription.slice(1);
     dataWindDesc.textContent = getWind(current.windSpeed, units).windDesc;
-    dataWindSpeed.textContent = getWind(
-      current.windSpeed,
-      units,
-    ).roundedSpeed;
+    dataWindSpeed.textContent = getWind(current.windSpeed, units).roundedSpeed;
     dataHumidity.textContent = current.humidity;
     dataVisibility.textContent = current.visibility;
     dataClouds.textContent = current.clouds;
@@ -337,10 +330,7 @@ const dom = (() => {
     ).formattedSunsetTime;
     dataMoon.textContent = getMoon(current.moonPhase).moonName;
     dataMoonIcon.setAttribute('src', getMoon(current.moonPhase).moonIcon);
-    dataMoonIcon.setAttribute(
-      'title',
-      getMoon(current.moonPhase).moonName,
-    );
+    dataMoonIcon.setAttribute('title', getMoon(current.moonPhase).moonName);
   }
 
   function renderApp(data) {
@@ -349,15 +339,13 @@ const dom = (() => {
     if (data.cod) {
       error.className = 'error show';
       mainContainer.className = 'main-container hide';
-      error.textContent = data.message.charAt(0).toUpperCase()
-        + data.message.slice(1);
+      error.textContent =
+        data.message.charAt(0).toUpperCase() + data.message.slice(1);
     } else {
       error.className = 'error hide';
       mainContainer.className = 'main-container';
 
-      const {
-        city, country, current, daily, units,
-      } = data;
+      const { city, country, current, daily, units } = data;
 
       changeUnits(units);
       renderForecast(city, country, current, units);
